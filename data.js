@@ -6,7 +6,7 @@ const gameData = {
                 mudah: [
                     {
                         pertanyaan: 'Apa nama hewan ini?',
-                        gambar: 'images/kucing.png',
+                        gambar: 'images/hewan/kucing.png',
                         jawaban: ['Kucing', 'Anjing', 'Burung', 'Ikan'],
                         jawabanBenar: 0
                     },
