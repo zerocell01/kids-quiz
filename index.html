@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuis Pintar Anak 🌟</title>
+  <meta name="description" content="Game kuis seru dan edukatif untuk balita 1-5 tahun. Belajar sambil bermain!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== SCREEN: HOME ===== -->
+  <div id="screen-home" class="screen active">
+    <div class="home-bg">
+      <div class="cloud cloud1">☁️</div>
+      <div class="cloud cloud2">☁️</div>
+      <div class="cloud cloud3">☁️</div>
+      <div class="star-float s1">⭐</div>
+      <div class="star-float s2">🌟</div>
+      <div class="star-float s3">✨</div>
+    </div>
+
+    <div class="home-content">
+      <div class="home-mascot">🦁</div>
+      <h1 class="home-title">Kuis Pintar<br/><span>Anak Hebat!</span></h1>
+      <p class="home-subtitle">Yuk belajar sambil bermain! 🎉</p>
+
+      <div class="category-grid" id="category-grid">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: QUIZ ===== -->
+  <div id="screen-quiz" class="screen">
+    <div class="quiz-header">
+      <button class="btn-back" onclick="goHome()">← Kembali</button>
+      <div class="quiz-category-label" id="quiz-category-label">🐾 Hewan</div>
+      <div class="quiz-score-mini">⭐ <span id="score-mini">0</span></div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progress-bar"></div>
+      <div class="progress-text" id="progress-text">Soal 1 dari 5</div>
+    </div>
+
+    <div class="quiz-card" id="quiz-card">
+      <div class="question-emoji" id="question-emoji">🐱</div>
+      <div class="question-text" id="question-text">Hewan apakah ini?</div>
+      <div class="answer-grid" id="answer-grid">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+
+    <!-- Overlay Feedback -->
+    <div class="feedback-overlay" id="feedback-overlay">
+      <div class="feedback-box" id="feedback-box">
+        <div class="feedback-emoji" id="feedback-emoji">✅</div>
+        <div class="feedback-text" id="feedback-text">Hebat!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: RESULT ===== -->
+  <div id="screen-result" class="screen">
+    <div class="result-content">
+      <div class="result-confetti" id="result-confetti"></div>
+      <div class="result-mascot" id="result-mascot">🏆</div>
+      <h2 class="result-title" id="result-title">Hebat sekali!</h2>
+      <div class="result-stars" id="result-stars"></div>
+      <div class="result-score-box">
+        <div class="result-score-label">Nilai kamu</div>
+        <div class="result-score" id="result-score">5 / 5</div>
+      </div>
+      <div class="result-message" id="result-message">Kamu sangat pintar! 🎉</div>
+      <div class="result-buttons">
+        <button class="btn-retry" onclick="retryCategory()">🔄 Coba Lagi</button>
+        <button class="btn-home-result" onclick="goHome()">🏠 Menu Utama</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
