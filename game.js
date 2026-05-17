@@ -5,6 +5,7 @@
 
 // ---- State ----
 let currentCategory = null;
+let currentLevel = null;
 let currentQuestions = [];
 let currentIndex = 0;
 let score = 0;
@@ -25,31 +26,115 @@ function buildCategoryGrid() {
     card.setAttribute("role", "button");
     card.setAttribute("tabindex", "0");
     card.setAttribute("aria-label", `Kategori ${cat.title}`);
+    
+    // Count total questions across all levels if levels exist, otherwise use fallback
+    let totalQuestions = 0;
+    if (cat.levels) {
+        totalQuestions = cat.levels.reduce((sum, lvl) => sum + lvl.questions.length, 0);
+    } else if (cat.questions) {
+        totalQuestions = cat.questions.length;
+    }
+
     card.innerHTML = `
       <span class="card-emoji">${cat.emoji}</span>
       <div class="card-title">${cat.title}</div>
-      <div class="card-count">${cat.questions.length} soal</div>
+      <div class="card-count">${totalQuestions} soal</div>
     `;
-    card.addEventListener("click", () => startQuiz(cat.id));
+    card.addEventListener("click", () => showLevelSelect(cat.id));
     card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") startQuiz(cat.id);
+      if (e.key === "Enter" || e.key === " ") showLevelSelect(cat.id);
     });
     grid.appendChild(card);
   });
 }
 
-// ---- Start quiz ----
-function startQuiz(categoryId) {
-  currentCategory = CATEGORIES.find((c) => c.id === categoryId);
-  if (!currentCategory) return;
+// ---- Show Level Select ----
+function showLevelSelect(categoryId) {
+    currentCategory = CATEGORIES.find((c) => c.id === categoryId);
+    if (!currentCategory) return;
+    
+    document.getElementById("level-select-category-label").textContent =
+      `${currentCategory.emoji} ${currentCategory.title}`;
+    
+    const grid = document.getElementById("level-grid");
+    grid.innerHTML = "";
+    
+    // Support legacy categories without levels by wrapping them in a default level
+    let levels = currentCategory.levels;
+    if (!levels) {
+        levels = [{
+            name: "Level 1",
+            subtitle: "Main",
+            stars: 1,
+            questions: currentCategory.questions
+        }];
+    }
+    
+    levels.forEach((lvl, index) => {
+        const card = document.createElement("div");
+        card.className = `level-card card-theme-${currentCategory.theme}`;
+        card.style.background = "white";
+        card.style.borderRadius = "20px";
+        card.style.padding = "20px";
+        card.style.boxShadow = "0 10px 25px rgba(0,0,0,0.05)";
+        card.style.cursor = "pointer";
+        card.style.transition = "transform 0.2s, box-shadow 0.2s";
+        card.setAttribute("role", "button");
+        card.setAttribute("tabindex", "0");
+        
+        // Add hover effects via JS for simplicity, though CSS is better
+        card.onmouseover = () => {
+            card.style.transform = "translateY(-5px)";
+            card.style.boxShadow = "0 15px 35px rgba(0,0,0,0.1)";
+        };
+        card.onmouseout = () => {
+            card.style.transform = "none";
+            card.style.boxShadow = "0 10px 25px rgba(0,0,0,0.05)";
+        };
 
-  currentQuestions = shuffle([...currentCategory.questions]);
+        const starsHtml = Array(3).fill(0).map((_, i) => 
+            `<span style="color: ${i < lvl.stars ? '#FFD700' : '#E0E0E0'}; font-size: 1.5rem;">★</span>`
+        ).join('');
+
+        card.innerHTML = `
+          <div style="font-size: 1.5rem; font-weight: 800; color: #333; margin-bottom: 5px;">${lvl.name}</div>
+          <div style="font-size: 1rem; color: #666; margin-bottom: 15px;">${lvl.subtitle}</div>
+          <div style="margin-bottom: 15px;">${starsHtml}</div>
+          <div style="font-size: 0.9rem; color: #888; background: #f5f5f5; padding: 5px 10px; border-radius: 10px; display: inline-block;">
+             ${lvl.questions.length} soal
+          </div>
+        `;
+        
+        card.addEventListener("click", () => startQuiz(lvl));
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") startQuiz(lvl);
+        });
+        grid.appendChild(card);
+    });
+    
+    showScreen("screen-level-select");
+}
+
+function goLevelSelect() {
+    if (currentCategory) {
+        showLevelSelect(currentCategory.id);
+    } else {
+        goHome();
+    }
+}
+
+// ---- Start quiz ----
+function startQuiz(levelObj) {
+  if (!currentCategory || !levelObj) return;
+  
+  currentLevel = levelObj;
+  currentQuestions = shuffle([...currentLevel.questions]);
   currentIndex = 0;
   score = 0;
   answered = false;
 
   document.getElementById("quiz-category-label").textContent =
-    `${currentCategory.emoji} ${currentCategory.title}`;
+    `${currentCategory.emoji} ${currentCategory.title} - ${currentLevel.name}`;
 
   showScreen("screen-quiz");
   renderQuestion();
@@ -192,8 +277,8 @@ function showResult() {
 }
 
 // ---- Retry & Home ----
-function retryCategory() {
-  if (currentCategory) startQuiz(currentCategory.id);
+function retryLevel() {
+  if (currentLevel) startQuiz(currentLevel);
 }
 
 function goHome() {

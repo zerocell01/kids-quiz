@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="id"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="">
+<body>
 
   <!-- ===== SCREEN: HOME ===== -->
   <div id="screen-home" class="screen active">
@@ -27,14 +28,37 @@
       <p class="home-subtitle">Yuk belajar sambil bermain! 🎉</p>
 
       <div class="category-grid" id="category-grid"></div>
+      <div class="card-count">20 soal</div>
+    </div><div class="category-card card-theme-1" role="button" tabindex="0" aria-label="Kategori Buah">
+      <span class="card-emoji">🍎</span>
+      <div class="card-title">Buah</div>
+      <div class="card-count">5 soal</div>
+    </div></div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: LEVEL SELECT ===== -->
+  <div id="screen-level-select" class="screen">
+    <div class="quiz-header">
+      <button class="btn-back" onclick="goHome()">← Kembali</button>
+      <div class="quiz-category-label" id="level-select-category-label">🐾 Hewan</div>
+    </div>
+
+    <div class="level-select-content" style="max-width: 800px; margin: 0 auto; text-align: center; padding: 20px;">
+      <h2 class="level-select-title" style="font-size: 2rem; color: #333; margin-top: 40px;">Pilih Level</h2>
+      <p class="level-select-subtitle" style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">Tantangan mana yang mau kamu coba? 🚀</p>
+      
+      <div class="level-grid" id="level-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 10px;">
+        <!-- Filled by JS -->
+      </div>
     </div>
   </div>
 
   <!-- ===== SCREEN: QUIZ ===== -->
   <div id="screen-quiz" class="screen">
     <div class="quiz-header">
-      <button class="btn-back" onclick="goHome()">← Kembali</button>
-      <div class="quiz-category-label" id="quiz-category-label">🐾 Hewan</div>
+      <button class="btn-back" onclick="goLevelSelect()">← Kembali</button>
+      <div class="quiz-category-label" id="quiz-category-label">🐾 Hewan - Level 1</div>
       <div class="quiz-score-mini">⭐ <span id="score-mini">0</span></div>
     </div>
 
@@ -73,12 +97,14 @@
       </div>
       <div class="result-message" id="result-message">Kamu sangat pintar! 🎉</div>
       <div class="result-buttons">
-        <button class="btn-retry" onclick="retryCategory()">🔄 Coba Lagi</button>
-        <button class="btn-home-result" onclick="goHome()">🏠 Menu Utama</button>
+        <button class="btn-retry" onclick="retryLevel()">🔄 Coba Lagi</button>
+        <button class="btn-home-result" onclick="goLevelSelect()">🗂️ Pilih Level</button>
       </div>
     </div>
   </div>
 
-  <script src="questions.js"></script>
+  <script src="questions_v2.js"></script>
   <script src="game.js"></script>
+
+
 </body></html>
