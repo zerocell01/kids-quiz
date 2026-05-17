@@ -6,7 +6,7 @@ const gameData = {
                 mudah: [
                     {
                         pertanyaan: 'Apa nama hewan ini?',
-                        gambar: 'https://unsplash.com/id/foto/kucing-bulu-panjang-putih-dan-coklat-ZCHj_2lJP00?w=400&h=400&fit=crop',
+                        gambar: 'https://unsplash.com/id/foto/kucing-bulu-panjang-putih-dan-coklat-ZCHj_2lJP00',
                         jawaban: ['Kucing', 'Anjing', 'Burung', 'Ikan'],
                         jawabanBenar: 0
                     },
