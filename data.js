@@ -6,26 +6,26 @@ const gameData = {
                 mudah: [
                     {
                         pertanyaan: 'Apa nama hewan ini?',
-                        gambar: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=400&fit=crop',
+                        gambar: 'https://cdn.pixabay.com/photo/2020/12/26/11/44/cat-5858476_960_720.jpg?w=400&h=400&fit=crop',
                         jawaban: ['Kucing', 'Anjing', 'Burung', 'Ikan'],
                         jawabanBenar: 0
                     },
                     {
                         pertanyaan: 'Hewan apa ini?',
-                        gambar: 'https://images.unsplash.com/photo-1558788353-f76d92427f16?w=400&h=400&fit=crop',
-                        jawaban: ['Ayam', 'Bebek', 'Burung', 'Puyuh'],
+                        gambar: 'https://cdn.pixabay.com/photo/2018/03/06/16/08/puppy-3203071_960_720.jpg?w=400&h=400&fit=crop',
+                        jawaban: ['Ayam', 'Anjing', 'Burung', 'Puyuh'],
+                        jawabanBenar: 1
+                    },
+                    {
+                        pertanyaan: 'Hewan apakah aku?',
+                        gambar: 'https://cdn.pixabay.com/photo/2016/05/10/10/14/peacock-1382998_960_720.jpg?w=400&h=400&fit=crop',
+                        jawaban: ['Anjing', 'Kucing', 'Burung', 'Domba'],
                         jawabanBenar: 0
                     },
                     {
-                        pertanyaan: 'Siapa saya?',
-                        gambar: 'https://images.unsplash.com/photo-1537151608828-4a42a6b0c7cc?w=400&h=400&fit=crop',
-                        jawaban: ['Anjing', 'Kucing', 'Babi', 'Domba'],
-                        jawabanBenar: 0
-                    },
-                    {
-                        pertanyaan: 'Hewan apa yang bersuara "Meong"?',
-                        gambar: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=400&fit=crop',
-                        jawaban: ['Kucing', 'Anjing', 'Sapi', 'Kambing'],
+                        pertanyaan: 'Hewan apa ini?',
+                        gambar: 'https://cdn.pixabay.com/photo/2016/02/10/18/40/fish-1192671_960_720.jpg?w=400&h=400&fit=crop',
+                        jawaban: ['Ikan', 'Anjing', 'Sapi', 'Kambing'],
                         jawabanBenar: 0
                     }
                 ],
