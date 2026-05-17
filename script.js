@@ -4,6 +4,7 @@ let currentLevel = null;
 let currentQuestions = [];
 let currentQuestionIndex = 0;
 let score = 0;
+let autoNextTimeout = null;
 
 function selectAge(age) {
     currentAge = age;
@@ -52,6 +53,11 @@ function selectLevel(level) {
 }
 
 function loadQuestion() {
+    // Clear previous timeout
+    if (autoNextTimeout) {
+        clearTimeout(autoNextTimeout);
+    }
+
     if (currentQuestionIndex >= currentQuestions.length) {
         showResult();
         return;
@@ -62,11 +68,9 @@ function loadQuestion() {
     document.getElementById('questionText').textContent = q.pertanyaan;
     document.getElementById('questionImage').src = q.gambar;
     document.getElementById('counter').textContent = (currentQuestionIndex + 1) + '/' + currentQuestions.length;
-    document.getElementById('gameScore').textContent = score;
 
     const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
     document.getElementById('progressFill').style.width = progress + '%';
-    document.getElementById('progressPercent').textContent = Math.round(progress);
 
     const container = document.getElementById('answersGrid');
     container.innerHTML = '';
@@ -80,7 +84,6 @@ function loadQuestion() {
     });
 
     document.getElementById('feedback').classList.add('hidden');
-    document.getElementById('nextBtn').classList.add('hidden');
 }
 
 function checkAnswer(idx) {
@@ -95,10 +98,9 @@ function checkAnswer(idx) {
         feedbackEmoji.textContent = '✅';
         feedbackText.textContent = 'Benar! Jawaban yang tepat!';
         feedback.classList.remove('incorrect');
-        document.getElementById('gameScore').textContent = score;
     } else {
         feedbackEmoji.textContent = '❌';
-        feedbackText.textContent = 'Salah! Jawaban yang benar adalah: ' + q.jawaban[q.jawabanBenar];
+        feedbackText.textContent = 'Salah! Jawaban: ' + q.jawaban[q.jawabanBenar];
         feedback.classList.add('incorrect');
     }
 
@@ -112,12 +114,12 @@ function checkAnswer(idx) {
     });
 
     feedback.classList.remove('hidden');
-    document.getElementById('nextBtn').classList.remove('hidden');
-}
 
-function nextQuestion() {
-    currentQuestionIndex++;
-    loadQuestion();
+    // Auto next setelah 2 detik
+    autoNextTimeout = setTimeout(() => {
+        currentQuestionIndex++;
+        loadQuestion();
+    }, 2000);
 }
 
 function showResult() {
@@ -126,16 +128,16 @@ function showResult() {
     document.getElementById('totalQuestions').textContent = total;
 
     const pct = (score / total) * 100;
-    let emoji = '💪';
-    let msg = 'Jangan menyerah!';
-    let desc = 'Coba lagi untuk lebih baik!';
+    let emoji = '😊';
+    let msg = 'Coba lagi!';
+    let desc = 'Jangan menyerah, teruskan belajar!';
 
     if (pct === 100) {
         emoji = '🌟';
         msg = 'Sempurna!';
-        desc = 'Kamu adalah jawara!';
+        desc = 'Kamu adalah juara!';
     } else if (pct >= 80) {
-        emoji = '😊';
+        emoji = '🎉';
         msg = 'Bagus sekali!';
         desc = 'Teruskan prestasimu!';
     } else if (pct >= 60) {
@@ -157,6 +159,10 @@ function showScreen(id) {
 }
 
 function goBack() {
+    if (autoNextTimeout) {
+        clearTimeout(autoNextTimeout);
+    }
+
     if (currentLevel) {
         currentLevel = null;
         showScreen('levelScreen');
@@ -170,6 +176,9 @@ function goBack() {
 }
 
 function goToAge() {
+    if (autoNextTimeout) {
+        clearTimeout(autoNextTimeout);
+    }
     currentAge = null;
     currentCategory = null;
     currentLevel = null;
