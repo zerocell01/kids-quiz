@@ -1,5 +1,5 @@
 // =============================================
-//  KUIS PINTAR ANAK - game.js
+//  KUIS PINTAR ANAK — game.js
 //  Game engine untuk kuis anak balita
 // =============================================
 
@@ -142,12 +142,12 @@ function showFeedback(isCorrect) {
 
   box.className = `feedback-box ${isCorrect ? "correct-fb" : "wrong-fb"}`;
   if (isCorrect) {
-    const correctMessages = ["Hebat!", "Pintar!", "Benar!", "Yay!", "Bagus!"];
-    emoji.textContent = "OK";
+    const correctMessages = ["Hebat! 🎉", "Pintar! ⭐", "Benar! 🥳", "Yay! ✨", "Bagus! 👏"];
+    emoji.textContent = "✅";
     text.textContent = correctMessages[Math.floor(Math.random() * correctMessages.length)];
   } else {
-    emoji.textContent = "X";
-    text.textContent = "Coba lagi ya!";
+    emoji.textContent = "❌";
+    text.textContent = "Coba lagi ya! 💪";
   }
   overlay.classList.add("show");
 }
@@ -163,11 +163,11 @@ function showResult() {
 
   let mascot, title, message;
   if (pct === 1) {
-    mascot = "TROPHY"; title = "Sempurna!"; message = "Kamu luar biasa!";
+    mascot = "🏆"; title = "Sempurna!"; message = "Kamu luar biasa! 🌟🌟🌟";
   } else if (pct >= 0.6) {
-    mascot = "PARTY"; title = "Hebat!"; message = "Hampir sempurna, terus belajar ya!";
+    mascot = "🎉"; title = "Hebat!"; message = "Hampir sempurna, terus belajar ya! 😊";
   } else {
-    mascot = "RAINBOW"; title = "Semangat!"; message = "Ayo coba lagi, kamu pasti bisa!";
+    mascot = "🌈"; title = "Semangat!"; message = "Ayo coba lagi, kamu pasti bisa! 💪";
   }
 
   document.getElementById("result-mascot").textContent = mascot;
@@ -182,7 +182,7 @@ function showResult() {
   for (let i = 0; i < 3; i++) {
     const s = document.createElement("span");
     s.className = "star";
-    s.textContent = i < starsCount ? "STAR" : "EMPTY";
+    s.textContent = i < starsCount ? "⭐" : "☆";
     starsEl.appendChild(s);
   }
 
@@ -230,7 +230,7 @@ function launchConfetti() {
 let audioCtx = null;
 function getAudio() {
   if (!audioCtx) {
-    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { }
   }
   return audioCtx;
 }
