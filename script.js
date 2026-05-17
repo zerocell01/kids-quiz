@@ -5,12 +5,6 @@ let currentQuestions = [];
 let currentQuestionIndex = 0;
 let score = 0;
 
-function showScreen(screenId) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(screenId).classList.add('active');
-    window.scrollTo(0, 0); // Scroll ke atas
-}
-
 function selectAge(age) {
     currentAge = age;
     loadCategories();
@@ -23,24 +17,21 @@ function loadCategories() {
     container.innerHTML = '';
 
     Object.keys(categories).forEach(key => {
-        const categoryData = categories[key];
+        const cat = categories[key];
         const div = document.createElement('div');
-        div.className = 'category-card';
-        div.innerHTML = `
-            <button class="btn-category" onclick="selectCategory('${key}')">
-                <span class="category-emoji">${categoryData.nama.split(' ')[0]}</span>
-                <span class="category-name">${categoryData.nama.split(' ')[1]}</span>
-            </button>
-        `;
+        div.className = 'category-item';
+        div.innerHTML = `<button class="btn-category" onclick="selectCategory('${key}')">
+            <span class="emoji">${cat.nama.split(' ')[0]}</span>
+            <span>${cat.nama.split(' ')[1]}</span>
+        </button>`;
         container.appendChild(div);
     });
 }
 
-function selectCategory(category) {
-    currentCategory = category;
+function selectCategory(cat) {
+    currentCategory = cat;
+    document.getElementById('levelTitle').textContent = gameData[currentAge].kategori[cat].nama;
     showScreen('levelScreen');
-    document.getElementById('levelTitle').textContent = 
-        gameData[currentAge].kategori[category].nama;
 }
 
 function selectLevel(level) {
@@ -48,111 +39,101 @@ function selectLevel(level) {
     currentQuestions = gameData[currentAge].kategori[currentCategory][level];
     
     if (currentQuestions.length === 0) {
-        alert('Maaf, soal untuk level ini belum tersedia.\nCoba level lain!');
+        alert('Soal belum tersedia untuk level ini');
         return;
     }
 
     currentQuestionIndex = 0;
     score = 0;
     showScreen('gameScreen');
-    displayQuestion();
+    loadQuestion();
 }
 
-function displayQuestion() {
+function loadQuestion() {
     if (currentQuestionIndex >= currentQuestions.length) {
         showResult();
         return;
     }
 
-    const question = currentQuestions[currentQuestionIndex];
-    document.getElementById('questionText').textContent = question.pertanyaan;
-    document.getElementById('questionImage').src = question.gambar;
+    const q = currentQuestions[currentQuestionIndex];
     
-    // Update progress
-    document.getElementById('questionNumber').textContent = currentQuestionIndex + 1;
-    document.getElementById('totalNumber').textContent = currentQuestions.length;
-    
+    document.getElementById('questionText').textContent = q.pertanyaan;
+    document.getElementById('questionImage').src = q.gambar;
+    document.getElementById('counter').textContent = (currentQuestionIndex + 1) + '/' + currentQuestions.length;
+
     const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
     document.getElementById('progressFill').style.width = progress + '%';
 
-    // Clear feedback
-    const feedbackBox = document.getElementById('feedbackBox');
-    feedbackBox.classList.add('hidden');
-    document.getElementById('nextBtn').classList.add('hidden');
+    const container = document.getElementById('answersGrid');
+    container.innerHTML = '';
 
-    // Display answers
-    const answersGrid = document.getElementById('answersGrid');
-    answersGrid.innerHTML = '';
-
-    question.jawaban.forEach((answer, index) => {
+    q.jawaban.forEach((ans, idx) => {
         const btn = document.createElement('button');
         btn.className = 'btn-answer';
-        btn.textContent = answer;
-        btn.onclick = () => checkAnswer(index, btn);
-        answersGrid.appendChild(btn);
+        btn.textContent = ans;
+        btn.onclick = () => checkAnswer(idx);
+        container.appendChild(btn);
     });
+
+    document.getElementById('feedback').classList.add('hidden');
+    document.getElementById('nextBtn').classList.add('hidden');
 }
 
-function checkAnswer(selectedIndex, buttonElement) {
-    const question = currentQuestions[currentQuestionIndex];
-    const feedbackBox = document.getElementById('feedbackBox');
-    const feedbackText = document.getElementById('feedbackText');
-    const allButtons = document.querySelectorAll('.btn-answer');
+function checkAnswer(idx) {
+    const q = currentQuestions[currentQuestionIndex];
+    const feedback = document.getElementById('feedback');
+    const text = document.getElementById('feedbackText');
+    const correct = idx === q.jawabanBenar;
 
-    if (selectedIndex === question.jawabanBenar) {
+    if (correct) {
         score++;
-        feedbackText.innerHTML = '<span class="emoji-feedback">✅</span> Benar! Bagus sekali!';
-        feedbackBox.className = 'feedback-box correct';
-        buttonElement.classList.add('correct');
+        text.textContent = '✅ Benar!';
+        feedback.classList.remove('incorrect');
     } else {
-        const correctAnswer = question.jawaban[question.jawabanBenar];
-        feedbackText.innerHTML = `<span class="emoji-feedback">❌</span> Salah! Jawaban yang benar adalah: <strong>${correctAnswer}</strong>`;
-        feedbackBox.className = 'feedback-box incorrect';
-        buttonElement.classList.add('incorrect');
+        text.textContent = '❌ Salah! Jawaban: ' + q.jawaban[q.jawabanBenar];
+        feedback.classList.add('incorrect');
     }
 
-    allButtons.forEach(btn => btn.disabled = true);
-    feedbackBox.classList.remove('hidden');
+    document.querySelectorAll('.btn-answer').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.jawabanBenar) {
+            btn.classList.add('correct');
+        } else if (i === idx && !correct) {
+            btn.classList.add('incorrect');
+        }
+    });
+
+    feedback.classList.remove('hidden');
     document.getElementById('nextBtn').classList.remove('hidden');
 }
 
 function nextQuestion() {
     currentQuestionIndex++;
-    displayQuestion();
+    loadQuestion();
 }
 
 function showResult() {
-    const totalQuestions = currentQuestions.length;
+    const total = currentQuestions.length;
     document.getElementById('finalScore').textContent = score;
-    document.getElementById('totalQuestions').textContent = totalQuestions;
+    document.getElementById('totalQuestions').textContent = total;
 
-    let message = '';
-    let emoji = '';
-    const percentage = (score / totalQuestions) * 100;
+    const pct = (score / total) * 100;
+    let msg = '💪 Jangan menyerah!';
+    if (pct === 100) msg = '🌟 Sempurna!';
+    else if (pct >= 80) msg = '😊 Bagus sekali!';
+    else if (pct >= 60) msg = '👍 Cukup bagus!';
 
-    if (percentage === 100) {
-        emoji = '🌟';
-        message = 'Sempurna! Kamu sangat hebat!';
-    } else if (percentage >= 80) {
-        emoji = '😊';
-        message = 'Bagus sekali! Teruskan!';
-    } else if (percentage >= 60) {
-        emoji = '👍';
-        message = 'Cukup bagus! Terus belajar ya!';
-    } else {
-        emoji = '💪';
-        message = 'Jangan menyerah! Coba lagi!';
-    }
-
-    document.getElementById('resultMessage').textContent = emoji + ' ' + message;
+    document.getElementById('resultMessage').textContent = msg;
     showScreen('resultScreen');
 }
 
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
 function goBack() {
-    if (currentQuestionIndex > 0 && currentLevel) {
-        // Tidak bisa mundur pertanyaan, hanya bisa kembali ke awal
-        return;
-    } else if (currentLevel) {
+    if (currentLevel) {
         currentLevel = null;
         showScreen('levelScreen');
     } else if (currentCategory) {
@@ -168,7 +149,5 @@ function goToAge() {
     currentAge = null;
     currentCategory = null;
     currentLevel = null;
-    currentQuestionIndex = 0;
-    score = 0;
     showScreen('ageScreen');
 }
