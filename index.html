@@ -1,92 +1,158 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kuis Pintar Anak 🌟</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukatif Anak</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- HOME SCREEN -->
-  <div id="screen-home" class="screen active">
-    <div class="home-bg">
-      <div class="cloud cloud1">☁️</div>
-      <div class="cloud cloud2">☁️</div>
-      <div class="cloud cloud3">☁️</div>
-      <div class="star-float s1">⭐</div>
-      <div class="star-float s2">🌟</div>
-      <div class="star-float s3">✨</div>
-    </div>
-    <div class="home-content">
-      <div class="home-mascot">🦁</div>
-      <div class="home-title">Kuis Pintar<span>Anak</span> Hebat!</div>
-      <div class="home-subtitle">Yuk belajar sambil bermain! 🎉</div>
-      <div id="category-grid" class="category-grid"></div>
-    </div>
-  </div>
+    <div class="app-container">
+        <!-- Screen: Pilih Umur -->
+        <div id="ageScreen" class="screen active">
+            <div class="content-wrapper">
+                <div class="header-section">
+                    <h1 class="main-title">🎮 Game Edukatif</h1>
+                    <p class="subtitle">Belajar sambil bermain!</p>
+                </div>
 
-  <!-- LEVEL SELECT SCREEN -->
-  <div id="screen-level-select" class="screen">
-    <div class="quiz-header">
-      <button class="btn-back" onclick="goHome()">← Kembali</button>
-      <span id="level-select-category-label" class="quiz-category-label">Hewan</span>
-      <div style="width: 60px;"></div>
-    </div>
-    <div id="level-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 20px; margin: 0 auto; max-width: 600px; width: 100%;"></div>
-  </div>
+                <div class="age-section">
+                    <p class="label">Pilih Umur Anak:</p>
+                    <div class="age-buttons">
+                        <button class="btn btn-age" onclick="selectAge('1-2')">
+                            <span class="emoji">👶</span>
+                            <span class="text">1-2 Tahun</span>
+                        </button>
+                        <button class="btn btn-age" onclick="selectAge('3-4')">
+                            <span class="emoji">🧒</span>
+                            <span class="text">3-4 Tahun</span>
+                        </button>
+                        <button class="btn btn-age" onclick="selectAge('5+')">
+                            <span class="emoji">👦</span>
+                            <span class="text">5+ Tahun</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <!-- QUIZ SCREEN -->
-  <div id="screen-quiz" class="screen">
-    <div class="quiz-header">
-      <button class="btn-back" onclick="goLevelSelect()">← Kembali</button>
-      <span id="quiz-category-label" class="quiz-category-label">Hewan - Level 1</span>
-      <span id="score-mini" class="quiz-score-mini">0</span>
-    </div>
-    <div class="progress-wrap">
-      <div class="progress-bar"></div>
-      <div id="progress-text" class="progress-text">Soal 1 dari 5</div>
-    </div>
-    <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px;">
-      <div id="quiz-card" class="quiz-card">
-        <span id="question-emoji" class="question-emoji">🐱</span>
-        <div id="question-text" class="question-text">Hewan apakah ini?</div>
-        <div id="answer-grid" class="answer-grid"></div>
-      </div>
-    </div>
-    <div id="feedback-overlay" class="feedback-overlay">
-      <div id="feedback-box" class="feedback-box correct-fb">
-        <span id="feedback-emoji" class="feedback-emoji">✅</span>
-        <div id="feedback-text" class="feedback-text">Hebat!</div>
-      </div>
-    </div>
-  </div>
+        <!-- Screen: Pilih Kategori -->
+        <div id="categoryScreen" class="screen">
+            <div class="content-wrapper">
+                <div class="header-top">
+                    <button class="btn-back" onclick="goBack()">
+                        <span class="arrow">←</span> Kembali
+                    </button>
+                </div>
 
-  <!-- RESULT SCREEN -->
-  <div id="screen-result" class="screen">
-    <div id="result-confetti" class="result-confetti"></div>
-    <div class="result-content">
-      <div id="result-mascot" class="result-mascot">🏆</div>
-      <div id="result-title" class="result-title">Hebat!</div>
-      <div id="result-stars" class="result-stars">
-        <span class="star">⭐</span>
-        <span class="star">⭐</span>
-        <span class="star">⭐</span>
-      </div>
-      <div class="result-score-box">
-        <div class="result-score-label">Nilaimu</div>
-        <div id="result-score" class="result-score">5 / 5</div>
-      </div>
-      <div id="result-message" class="result-message">Kamu sangat pintar! 🎉</div>
-      <div class="result-buttons">
-        <button class="btn-retry" onclick="retryLevel()">🔄 Coba Lagi</button>
-        <button class="btn-home-result" onclick="goHome()">🏠 Pilih Level</button>
-      </div>
-    </div>
-  </div>
+                <h2 class="screen-title">Pilih Kategori</h2>
 
-  <!-- SCRIPTS -->
-  <script src="questions_v2.js"></script>
-  <script src="game.js"></script>
+                <div id="categoryContainer" class="category-grid"></div>
+            </div>
+        </div>
+
+        <!-- Screen: Pilih Level -->
+        <div id="levelScreen" class="screen">
+            <div class="content-wrapper">
+                <div class="header-top">
+                    <button class="btn-back" onclick="goBack()">
+                        <span class="arrow">←</span> Kembali
+                    </button>
+                </div>
+
+                <h2 class="screen-title" id="levelTitle">Pilih Level</h2>
+
+                <div class="level-buttons">
+                    <button class="btn btn-level" onclick="selectLevel('mudah')">
+                        <span class="stars">⭐</span>
+                        <span class="level-name">Mudah</span>
+                        <span class="level-desc">Untuk pemula</span>
+                    </button>
+                    <button class="btn btn-level" onclick="selectLevel('sedang')">
+                        <span class="stars">⭐⭐</span>
+                        <span class="level-name">Sedang</span>
+                        <span class="level-desc">Lebih menantang</span>
+                    </button>
+                    <button class="btn btn-level" onclick="selectLevel('sulit')">
+                        <span class="stars">⭐⭐⭐</span>
+                        <span class="level-name">Sulit</span>
+                        <span class="level-desc">Super menantang</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen: Permainan -->
+        <div id="gameScreen" class="screen">
+            <div class="content-wrapper">
+                <div class="game-header">
+                    <button class="btn-back" onclick="goBack()">
+                        <span class="arrow">←</span>
+                    </button>
+                    <div class="progress-info">
+                        <span id="questionNumber">1</span> / <span id="totalNumber">10</span>
+                    </div>
+                </div>
+
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+
+                <div class="game-content">
+                    <h3 id="questionText" class="question-text">Pertanyaan di sini</h3>
+                    
+                    <div id="answersContainer" class="answers-container">
+                        <div class="answer-image">
+                            <img id="questionImage" src="" alt="Gambar soal">
+                        </div>
+                        <div id="answersGrid" class="answers-grid"></div>
+                    </div>
+
+                    <div id="feedbackBox" class="feedback-box hidden">
+                        <div class="feedback-content">
+                            <p id="feedbackText"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-footer">
+                    <button id="nextBtn" class="btn btn-next hidden" onclick="nextQuestion()">
+                        Lanjut <span class="arrow">→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen: Hasil -->
+        <div id="resultScreen" class="screen">
+            <div class="content-wrapper">
+                <div class="result-container">
+                    <h2 class="result-title">🎉 Selesai!</h2>
+                    
+                    <div class="score-circle">
+                        <div class="score-content">
+                            <span id="finalScore" class="score-number">0</span>
+                            <span class="score-slash">/</span>
+                            <span id="totalQuestions" class="score-total">10</span>
+                        </div>
+                    </div>
+
+                    <p id="resultMessage" class="result-message">Bagus sekali!</p>
+
+                    <div class="result-actions">
+                        <button class="btn btn-full" onclick="goToAge()">
+                            Menu Utama
+                        </button>
+                        <button class="btn btn-full btn-secondary" onclick="location.reload()">
+                            Mulai Ulang
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
