@@ -17,17 +17,17 @@
             </div>
             
             <div class="age-cards">
-                <button class="age-card" onclick="selectAge('1-2')">
+                <button class="age-card age-card-1" onclick="selectAge('1-2')">
                     <div class="card-emoji">👶</div>
                     <div class="card-title">1-2 Tahun</div>
                     <div class="card-desc">Bayi Cerdas</div>
                 </button>
-                <button class="age-card" onclick="selectAge('3-4')">
+                <button class="age-card age-card-2" onclick="selectAge('3-4')">
                     <div class="card-emoji">🧒</div>
                     <div class="card-title">3-4 Tahun</div>
                     <div class="card-desc">Anak Aktif</div>
                 </button>
-                <button class="age-card" onclick="selectAge('5+')">
+                <button class="age-card age-card-3" onclick="selectAge('5+')">
                     <div class="card-emoji">👦</div>
                     <div class="card-title">5+ Tahun</div>
                     <div class="card-desc">Anak Pintar</div>
@@ -58,22 +58,34 @@
             
             <div class="level-cards">
                 <button class="level-card level-easy" onclick="selectLevel('mudah')">
-                    <div class="level-stars">⭐</div>
-                    <div class="level-name">Mudah</div>
+                    <div class="level-content">
+                        <div class="level-stars">⭐</div>
+                        <div>
+                            <div class="level-name">Mudah</div>
+                            <div class="level-desc">Untuk pemula</div>
+                        </div>
+                    </div>
                     <div class="level-emoji">😊</div>
-                    <div class="level-desc">Untuk pemula</div>
                 </button>
                 <button class="level-card level-medium" onclick="selectLevel('sedang')">
-                    <div class="level-stars">⭐⭐</div>
-                    <div class="level-name">Sedang</div>
+                    <div class="level-content">
+                        <div class="level-stars">⭐⭐</div>
+                        <div>
+                            <div class="level-name">Sedang</div>
+                            <div class="level-desc">Lebih menantang</div>
+                        </div>
+                    </div>
                     <div class="level-emoji">🔥</div>
-                    <div class="level-desc">Lebih menantang</div>
                 </button>
                 <button class="level-card level-hard" onclick="selectLevel('sulit')">
-                    <div class="level-stars">⭐⭐⭐</div>
-                    <div class="level-name">Sulit</div>
+                    <div class="level-content">
+                        <div class="level-stars">⭐⭐⭐</div>
+                        <div>
+                            <div class="level-name">Sulit</div>
+                            <div class="level-desc">Super menantang</div>
+                        </div>
+                    </div>
                     <div class="level-emoji">💪</div>
-                    <div class="level-desc">Super menantang</div>
                 </button>
             </div>
         </div>
@@ -87,7 +99,7 @@
                 <div class="game-info">
                     <span id="counter" class="counter">1/10</span>
                     <div class="score-display">
-                        <span class="score-label">Poin:</span>
+                        <span class="score-label">Poin: </span>
                         <span id="gameScore" class="score-value">0</span>
                     </div>
                 </div>
@@ -97,11 +109,11 @@
                 <div class="progress-bar">
                     <div id="progressFill" class="progress-fill"></div>
                 </div>
-                <p class="progress-text">Progres: <span id="progressPercent">0</span>%</p>
             </div>
 
             <div class="game-content">
                 <div class="question-box">
+                    <div class="question-number">Soal <span id="questionNum">1</span></div>
                     <h3 id="questionText">Pertanyaan?</h3>
                 </div>
 
@@ -119,10 +131,6 @@
                         <p id="feedbackText"></p>
                     </div>
                 </div>
-
-                <button id="nextBtn" class="btn-next hidden" onclick="nextQuestion()">
-                    Lanjut →
-                </button>
             </div>
         </div>
     </div>
@@ -146,6 +154,7 @@
             <div class="result-rating">
                 <p id="resultMessage" class="result-message">Bagus sekali!</p>
                 <p id="resultDesc" class="result-desc">Teruskan semangatmu!</p>
+                <div id="resultBar" class="result-bar"></div>
             </div>
 
             <div class="result-actions">

@@ -67,7 +67,9 @@ function loadQuestion() {
     
     document.getElementById('questionText').textContent = q.pertanyaan;
     document.getElementById('questionImage').src = q.gambar;
+    document.getElementById('questionNum').textContent = currentQuestionIndex + 1;
     document.getElementById('counter').textContent = (currentQuestionIndex + 1) + '/' + currentQuestions.length;
+    document.getElementById('gameScore').textContent = score;
 
     const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
     document.getElementById('progressFill').style.width = progress + '%';
@@ -98,6 +100,7 @@ function checkAnswer(idx) {
         feedbackEmoji.textContent = '✅';
         feedbackText.textContent = 'Benar! Jawaban yang tepat!';
         feedback.classList.remove('incorrect');
+        document.getElementById('gameScore').textContent = score;
     } else {
         feedbackEmoji.textContent = '❌';
         feedbackText.textContent = 'Salah! Jawaban: ' + q.jawaban[q.jawabanBenar];
@@ -124,10 +127,11 @@ function checkAnswer(idx) {
 
 function showResult() {
     const total = currentQuestions.length;
-    document.getElementById('finalScore').textContent = score;
+    const finalScore = score;
+    document.getElementById('finalScore').textContent = finalScore;
     document.getElementById('totalQuestions').textContent = total;
 
-    const pct = (score / total) * 100;
+    const pct = (finalScore / total) * 100;
     let emoji = '😊';
     let msg = 'Coba lagi!';
     let desc = 'Jangan menyerah, teruskan belajar!';
