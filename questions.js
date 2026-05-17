@@ -1,6 +1,18 @@
 // =============================================
 //  KUIS PINTAR ANAK — questions.js
 //  Edit bagian ini untuk mengganti soal-soal!
+//  Format tiap soal:
+//  {
+//    emoji: "🐱",          ← gambar soal (emoji besar)
+//    question: "...",      ← teks pertanyaan
+//    answers: [            ← 4 pilihan jawaban
+//      { emoji: "🐱", text: "Kucing" },
+//      { emoji: "🐶", text: "Anjing" },
+//      { emoji: "🐸", text: "Katak" },
+//      { emoji: "🐔", text: "Ayam" },
+//    ],
+//    correct: 0            ← index jawaban benar (0 = pertama)
+//  }
 // =============================================
 
 const CATEGORIES = [
@@ -204,7 +216,7 @@ const CATEGORIES = [
     questions: [
       {
         emoji: "🌟🌟🌟",
-        question: "Ada berapa bintang?",
+        question: "Ada berapa bintang? ⭐⭐⭐",
         answers: [
           { emoji: "1️⃣", text: "1" },
           { emoji: "2️⃣", text: "2" },
@@ -215,7 +227,7 @@ const CATEGORIES = [
       },
       {
         emoji: "🐱🐱",
-        question: "Ada berapa kucing?",
+        question: "Ada berapa kucing? 🐱🐱",
         answers: [
           { emoji: "3️⃣", text: "3" },
           { emoji: "2️⃣", text: "2" },
@@ -226,7 +238,7 @@ const CATEGORIES = [
       },
       {
         emoji: "🍎🍎🍎🍎",
-        question: "Ada berapa apel?",
+        question: "Ada berapa apel? 🍎🍎🍎🍎",
         answers: [
           { emoji: "4️⃣", text: "4" },
           { emoji: "3️⃣", text: "3" },
@@ -237,7 +249,7 @@ const CATEGORIES = [
       },
       {
         emoji: "🐶",
-        question: "Ada berapa anjing?",
+        question: "Ada berapa anjing? 🐶",
         answers: [
           { emoji: "3️⃣", text: "3" },
           { emoji: "2️⃣", text: "2" },
@@ -248,7 +260,7 @@ const CATEGORIES = [
       },
       {
         emoji: "🌸🌸🌸🌸🌸",
-        question: "Ada berapa bunga?",
+        question: "Ada berapa bunga? 🌸🌸🌸🌸🌸",
         answers: [
           { emoji: "3️⃣", text: "3" },
           { emoji: "4️⃣", text: "4" },
