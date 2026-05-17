@@ -1,12 +1,21 @@
-// === Game State Variables ===
+// =============================================
+//  KUIS PINTAR ANAK - game.js
+//  Game engine untuk kuis anak balita
+// =============================================
+
+// ---- State ----
 let currentCategory = null;
 let currentQuestions = [];
 let currentIndex = 0;
 let score = 0;
 let answered = false;
-let audioCtx = null;
 
-// === buildCategoryGrid ===
+// ---- Init ----
+document.addEventListener("DOMContentLoaded", () => {
+  buildCategoryGrid();
+});
+
+// ---- Build category cards ----
 function buildCategoryGrid() {
   const grid = document.getElementById("category-grid");
   grid.innerHTML = "";
@@ -29,7 +38,7 @@ function buildCategoryGrid() {
   });
 }
 
-// === startQuiz ===
+// ---- Start quiz ----
 function startQuiz(categoryId) {
   currentCategory = CATEGORIES.find((c) => c.id === categoryId);
   if (!currentCategory) return;
@@ -46,7 +55,7 @@ function startQuiz(categoryId) {
   renderQuestion();
 }
 
-// === renderQuestion ===
+// ---- Render current question ----
 function renderQuestion() {
   const q = currentQuestions[currentIndex];
   const total = currentQuestions.length;
@@ -91,7 +100,7 @@ function renderQuestion() {
   card.style.animation = "cardIn 0.35s cubic-bezier(.4,0,.2,1)";
 }
 
-// === handleAnswer ===
+// ---- Handle answer ----
 function handleAnswer(selectedIndex, correctIndex, selectedBtn, grid) {
   if (answered) return;
   answered = true;
@@ -124,7 +133,7 @@ function handleAnswer(selectedIndex, correctIndex, selectedBtn, grid) {
   }, 1400);
 }
 
-// === showFeedback ===
+// ---- Feedback overlay ----
 function showFeedback(isCorrect) {
   const overlay = document.getElementById("feedback-overlay");
   const box = document.getElementById("feedback-box");
@@ -133,33 +142,32 @@ function showFeedback(isCorrect) {
 
   box.className = `feedback-box ${isCorrect ? "correct-fb" : "wrong-fb"}`;
   if (isCorrect) {
-    const correctMessages = ["Hebat! 🎉", "Pintar! ⭐", "Benar! 🥳", "Yay! ✨", "Bagus! 👏"];
-    emoji.textContent = "✅";
+    const correctMessages = ["Hebat!", "Pintar!", "Benar!", "Yay!", "Bagus!"];
+    emoji.textContent = "OK";
     text.textContent = correctMessages[Math.floor(Math.random() * correctMessages.length)];
   } else {
-    emoji.textContent = "❌";
-    text.textContent = "Coba lagi ya! 💪";
+    emoji.textContent = "X";
+    text.textContent = "Coba lagi ya!";
   }
   overlay.classList.add("show");
 }
 
-// === hideFeedback ===
 function hideFeedback() {
   document.getElementById("feedback-overlay").classList.remove("show");
 }
 
-// === showResult ===
+// ---- Show result ----
 function showResult() {
   const total = currentQuestions.length;
   const pct = score / total;
 
   let mascot, title, message;
   if (pct === 1) {
-    mascot = "🏆"; title = "Sempurna!"; message = "Kamu luar biasa! 🌟🌟🌟";
+    mascot = "TROPHY"; title = "Sempurna!"; message = "Kamu luar biasa!";
   } else if (pct >= 0.6) {
-    mascot = "🎉"; title = "Hebat!"; message = "Hampir sempurna, terus belajar ya! 😊";
+    mascot = "PARTY"; title = "Hebat!"; message = "Hampir sempurna, terus belajar ya!";
   } else {
-    mascot = "🌈"; title = "Semangat!"; message = "Ayo coba lagi, kamu pasti bisa! 💪";
+    mascot = "RAINBOW"; title = "Semangat!"; message = "Ayo coba lagi, kamu pasti bisa!";
   }
 
   document.getElementById("result-mascot").textContent = mascot;
@@ -174,7 +182,7 @@ function showResult() {
   for (let i = 0; i < 3; i++) {
     const s = document.createElement("span");
     s.className = "star";
-    s.textContent = i < starsCount ? "⭐" : "☆";
+    s.textContent = i < starsCount ? "STAR" : "EMPTY";
     starsEl.appendChild(s);
   }
 
@@ -183,24 +191,23 @@ function showResult() {
   if (pct >= 0.6) launchConfetti();
 }
 
-// === retryCategory ===
+// ---- Retry & Home ----
 function retryCategory() {
   if (currentCategory) startQuiz(currentCategory.id);
 }
 
-// === goHome ===
 function goHome() {
   showScreen("screen-home");
 }
 
-// === showScreen ===
+// ---- Screen manager ----
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
   window.scrollTo(0, 0);
 }
 
-// === launchConfetti ===
+// ---- Confetti ----
 function launchConfetti() {
   const container = document.getElementById("result-confetti");
   container.innerHTML = "";
@@ -219,15 +226,15 @@ function launchConfetti() {
   }
 }
 
-// === getAudio ===
+// ---- Sound (Web Audio API) ----
+let audioCtx = null;
 function getAudio() {
   if (!audioCtx) {
-    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { }
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
   }
   return audioCtx;
 }
 
-// === playSound ===
 function playSound(isCorrect) {
   const ctx = getAudio();
   if (!ctx) return;
@@ -257,7 +264,7 @@ function playSound(isCorrect) {
   }
 }
 
-// === shuffle ===
+// ---- Utilities ----
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -267,7 +274,6 @@ function shuffle(arr) {
   return a;
 }
 
-// === shuffleAnswers ===
 function shuffleAnswers(answers, correctIndex) {
   const correctAnswer = answers[correctIndex];
   const others = answers.filter((_, i) => i !== correctIndex);
@@ -276,7 +282,3 @@ function shuffleAnswers(answers, correctIndex) {
   const newCorrectIndex = combined.indexOf(correctAnswer);
   return { answers: combined, correctIndex: newCorrectIndex };
 }
-
-// === Auto-start on Load ===
-document.addEventListener("DOMContentLoaded", buildCategoryGrid);
-buildCategoryGrid(); // also invoke immediately in case DOMContentLoaded already fired
