@@ -25,16 +25,7 @@ const CATEGORIES = [
           { emoji: "🐔", question: "Hewan ini bertelur setiap hari!", answers: [{ emoji: "🐟", text: "Ikan" }, { emoji: "🐔", text: "Ayam" }, { emoji: "🐸", text: "Katak" }, { emoji: "🐍", text: "Ular" }], correct: 1 },  
           { emoji: "🐘", question: "Hewan apa yang sangat besar dan punya belalai?", answers: [{ emoji: "🦒", text: "Jerapah" }, { emoji: "🦁", text: "Singa" }, { emoji: "🦓", text: "Zebra" }, { emoji: "🐘", text: "Gajah" }], correct: 3 },  
           { emoji: "🐠", question: "Hewan apa yang hidup di air?", answers: [{ emoji: "🐠", text: "Ikan" }, { emoji: "🐓", text: "Ayam" }, { emoji: "🐈", text: "Kucing" }, { emoji: "🐕", text: "Anjing" }], correct: 0 },  
-          { emoji: "🐱", question: "Hewan apa ini?", answers: [{ emoji: "🐱", text: "Kucing" }, { emoji: "🐶", text: "Anjing" }, { emoji: "🐸", text: "Katak" }, { emoji: "🐭", text: "Tikus" }], correct: 0 },  
-          { emoji: "🐶", question: "Siapa yang bilang 'Guk Guk'?", answers: [{ emoji: "🐱", text: "Kucing" }, { emoji: "🐦", text: "Burung" }, { emoji: "🐶", text: "Anjing" }, { emoji: "🐮", text: "Sapi" }], correct: 2 },  
-          { emoji: "🐔", question: "Hewan ini bertelur setiap hari!", answers: [{ emoji: "🐟", text: "Ikan" }, { emoji: "🐔", text: "Ayam" }, { emoji: "🐸", text: "Katak" }, { emoji: "🐍", text: "Ular" }], correct: 1 },  
-          { emoji: "🐘", question: "Hewan apa yang sangat besar dan punya belalai?", answers: [{ emoji: "🦒", text: "Jerapah" }, { emoji: "🦁", text: "Singa" }, { emoji: "🦓", text: "Zebra" }, { emoji: "🐘", text: "Gajah" }], correct: 3 },  
-          { emoji: "🐠", question: "Hewan apa yang hidup di air?", answers: [{ emoji: "🐠", text: "Ikan" }, { emoji: "🐓", text: "Ayam" }, { emoji: "🐈", text: "Kucing" }, { emoji: "🐕", text: "Anjing" }], correct: 0 },  
-          { emoji: "🐱", question: "Hewan apa ini?", answers: [{ emoji: "🐱", text: "Kucing" }, { emoji: "🐶", text: "Anjing" }, { emoji: "🐸", text: "Katak" }, { emoji: "🐭", text: "Tikus" }], correct: 0 },  
-          { emoji: "🐶", question: "Siapa yang bilang 'Guk Guk'?", answers: [{ emoji: "🐱", text: "Kucing" }, { emoji: "🐦", text: "Burung" }, { emoji: "🐶", text: "Anjing" }, { emoji: "🐮", text: "Sapi" }], correct: 2 },  
-          { emoji: "🐔", question: "Hewan ini bertelur setiap hari!", answers: [{ emoji: "🐟", text: "Ikan" }, { emoji: "🐔", text: "Ayam" }, { emoji: "🐸", text: "Katak" }, { emoji: "🐍", text: "Ular" }], correct: 1 },  
-          { emoji: "🐘", question: "Hewan apa yang sangat besar dan punya belalai?", answers: [{ emoji: "🦒", text: "Jerapah" }, { emoji: "🦁", text: "Singa" }, { emoji: "🦓", text: "Zebra" }, { emoji: "🐘", text: "Gajah" }], correct: 3 },  
-          { emoji: "🐠", question: "Hewan apa yang hidup di air?", answers: [{ emoji: "🐠", text: "Ikan" }, { emoji: "🐓", text: "Ayam" }, { emoji: "🐈", text: "Kucing" }, { emoji: "🐕", text: "Anjing" }], correct: 0 }  
+          
         ]  
       },  
       {  
