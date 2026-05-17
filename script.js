@@ -20,9 +20,11 @@ function loadCategories() {
         const cat = categories[key];
         const div = document.createElement('div');
         div.className = 'category-item';
+        const emoji = cat.nama.split(' ')[0];
+        const name = cat.nama.split(' ')[1];
         div.innerHTML = `<button class="btn-category" onclick="selectCategory('${key}')">
-            <span class="emoji">${cat.nama.split(' ')[0]}</span>
-            <span>${cat.nama.split(' ')[1]}</span>
+            <span class="emoji">${emoji}</span>
+            <span>${name}</span>
         </button>`;
         container.appendChild(div);
     });
@@ -39,7 +41,7 @@ function selectLevel(level) {
     currentQuestions = gameData[currentAge].kategori[currentCategory][level];
     
     if (currentQuestions.length === 0) {
-        alert('Soal belum tersedia untuk level ini');
+        alert('😅 Soal belum tersedia untuk level ini.\nCoba level lain!');
         return;
     }
 
@@ -60,9 +62,11 @@ function loadQuestion() {
     document.getElementById('questionText').textContent = q.pertanyaan;
     document.getElementById('questionImage').src = q.gambar;
     document.getElementById('counter').textContent = (currentQuestionIndex + 1) + '/' + currentQuestions.length;
+    document.getElementById('gameScore').textContent = score;
 
     const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
     document.getElementById('progressFill').style.width = progress + '%';
+    document.getElementById('progressPercent').textContent = Math.round(progress);
 
     const container = document.getElementById('answersGrid');
     container.innerHTML = '';
@@ -82,15 +86,19 @@ function loadQuestion() {
 function checkAnswer(idx) {
     const q = currentQuestions[currentQuestionIndex];
     const feedback = document.getElementById('feedback');
-    const text = document.getElementById('feedbackText');
+    const feedbackEmoji = document.getElementById('feedbackEmoji');
+    const feedbackText = document.getElementById('feedbackText');
     const correct = idx === q.jawabanBenar;
 
     if (correct) {
         score++;
-        text.textContent = '✅ Benar!';
+        feedbackEmoji.textContent = '✅';
+        feedbackText.textContent = 'Benar! Jawaban yang tepat!';
         feedback.classList.remove('incorrect');
+        document.getElementById('gameScore').textContent = score;
     } else {
-        text.textContent = '❌ Salah! Jawaban: ' + q.jawaban[q.jawabanBenar];
+        feedbackEmoji.textContent = '❌';
+        feedbackText.textContent = 'Salah! Jawaban yang benar adalah: ' + q.jawaban[q.jawabanBenar];
         feedback.classList.add('incorrect');
     }
 
@@ -118,18 +126,34 @@ function showResult() {
     document.getElementById('totalQuestions').textContent = total;
 
     const pct = (score / total) * 100;
-    let msg = '💪 Jangan menyerah!';
-    if (pct === 100) msg = '🌟 Sempurna!';
-    else if (pct >= 80) msg = '😊 Bagus sekali!';
-    else if (pct >= 60) msg = '👍 Cukup bagus!';
+    let emoji = '💪';
+    let msg = 'Jangan menyerah!';
+    let desc = 'Coba lagi untuk lebih baik!';
 
+    if (pct === 100) {
+        emoji = '🌟';
+        msg = 'Sempurna!';
+        desc = 'Kamu adalah jawara!';
+    } else if (pct >= 80) {
+        emoji = '😊';
+        msg = 'Bagus sekali!';
+        desc = 'Teruskan prestasimu!';
+    } else if (pct >= 60) {
+        emoji = '👍';
+        msg = 'Cukup bagus!';
+        desc = 'Terus belajar ya!';
+    }
+
+    document.getElementById('resultEmoji').textContent = emoji;
     document.getElementById('resultMessage').textContent = msg;
+    document.getElementById('resultDesc').textContent = desc;
     showScreen('resultScreen');
 }
 
 function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
 }
 
 function goBack() {

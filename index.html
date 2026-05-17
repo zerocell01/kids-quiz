@@ -9,46 +9,71 @@
 <body>
     <!-- SCREEN 1: PILIH UMUR -->
     <div id="ageScreen" class="screen active">
-        <div class="screen-content">
-            <h1>🎮 Game Edukatif</h1>
-            <p class="subtitle">Belajar sambil bermain!</p>
+        <div class="container">
+            <div class="title-section">
+                <div class="big-emoji">🎮</div>
+                <h1>Game Edukatif</h1>
+                <p class="subtitle">Belajar sambil bermain!</p>
+            </div>
             
-            <div class="button-section">
-                <p class="label">Pilih Umur Anak:</p>
-                <button class="btn btn-large" onclick="selectAge('1-2')">👶 1-2 Tahun</button>
-                <button class="btn btn-large" onclick="selectAge('3-4')">🧒 3-4 Tahun</button>
-                <button class="btn btn-large" onclick="selectAge('5+')">👦 5+ Tahun</button>
+            <div class="age-cards">
+                <button class="age-card" onclick="selectAge('1-2')">
+                    <div class="card-emoji">👶</div>
+                    <div class="card-title">1-2 Tahun</div>
+                    <div class="card-desc">Bayi Cerdas</div>
+                </button>
+                <button class="age-card" onclick="selectAge('3-4')">
+                    <div class="card-emoji">🧒</div>
+                    <div class="card-title">3-4 Tahun</div>
+                    <div class="card-desc">Anak Aktif</div>
+                </button>
+                <button class="age-card" onclick="selectAge('5+')">
+                    <div class="card-emoji">👦</div>
+                    <div class="card-title">5+ Tahun</div>
+                    <div class="card-desc">Anak Pintar</div>
+                </button>
             </div>
         </div>
     </div>
 
     <!-- SCREEN 2: PILIH KATEGORI -->
     <div id="categoryScreen" class="screen">
-        <div class="screen-content">
-            <div class="top-bar">
-                <button class="btn btn-small" onclick="goBack()">← Kembali</button>
+        <div class="container">
+            <div class="header">
+                <button class="btn-back" onclick="goBack()">← Kembali</button>
+                <h2>Pilih Kategori</h2>
             </div>
-            <h2>Pilih Kategori</h2>
-            <div id="categoryContainer" class="grid-2"></div>
+            
+            <div id="categoryContainer" class="category-grid"></div>
         </div>
     </div>
 
     <!-- SCREEN 3: PILIH LEVEL -->
     <div id="levelScreen" class="screen">
-        <div class="screen-content">
-            <div class="top-bar">
-                <button class="btn btn-small" onclick="goBack()">← Kembali</button>
+        <div class="container">
+            <div class="header">
+                <button class="btn-back" onclick="goBack()">← Kembali</button>
+                <h2 id="levelTitle">Pilih Level</h2>
             </div>
-            <h2 id="levelTitle">Pilih Level</h2>
-            <div class="button-section">
-                <button class="btn btn-level" onclick="selectLevel('mudah')">
-                    ⭐ Mudah <br><small>Untuk pemula</small>
+            
+            <div class="level-cards">
+                <button class="level-card level-easy" onclick="selectLevel('mudah')">
+                    <div class="level-stars">⭐</div>
+                    <div class="level-name">Mudah</div>
+                    <div class="level-emoji">😊</div>
+                    <div class="level-desc">Untuk pemula</div>
                 </button>
-                <button class="btn btn-level" onclick="selectLevel('sedang')">
-                    ⭐⭐ Sedang <br><small>Lebih menantang</small>
+                <button class="level-card level-medium" onclick="selectLevel('sedang')">
+                    <div class="level-stars">⭐⭐</div>
+                    <div class="level-name">Sedang</div>
+                    <div class="level-emoji">🔥</div>
+                    <div class="level-desc">Lebih menantang</div>
                 </button>
-                <button class="btn btn-level" onclick="selectLevel('sulit')">
-                    ⭐⭐⭐ Sulit <br><small>Super menantang</small>
+                <button class="level-card level-hard" onclick="selectLevel('sulit')">
+                    <div class="level-stars">⭐⭐⭐</div>
+                    <div class="level-name">Sulit</div>
+                    <div class="level-emoji">💪</div>
+                    <div class="level-desc">Super menantang</div>
                 </button>
             </div>
         </div>
@@ -56,30 +81,46 @@
 
     <!-- SCREEN 4: GAME -->
     <div id="gameScreen" class="screen">
-        <div class="screen-content">
-            <div class="top-bar">
-                <button class="btn btn-small" onclick="goBack()">← Kembali</button>
-                <span id="counter" class="counter">1/10</span>
-            </div>
-            
-            <div class="progress-bar">
-                <div id="progressFill" class="progress-fill"></div>
-            </div>
-
-            <h3 id="questionText" class="question">Pertanyaan?</h3>
-            
-            <div class="image-box">
-                <img id="questionImage" src="" alt="Gambar soal">
+        <div class="container">
+            <div class="game-header">
+                <button class="btn-back" onclick="goBack()">← Kembali</button>
+                <div class="game-info">
+                    <span id="counter" class="counter">1/10</span>
+                    <div class="score-display">
+                        <span class="score-label">Poin:</span>
+                        <span id="gameScore" class="score-value">0</span>
+                    </div>
+                </div>
             </div>
 
-            <div id="answersGrid" class="grid-2 answers"></div>
-
-            <div id="feedback" class="feedback hidden">
-                <p id="feedbackText"></p>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+                <p class="progress-text">Progres: <span id="progressPercent">0</span>%</p>
             </div>
 
-            <div class="button-section">
-                <button id="nextBtn" class="btn btn-large hidden" onclick="nextQuestion()">
+            <div class="game-content">
+                <div class="question-box">
+                    <h3 id="questionText">Pertanyaan?</h3>
+                </div>
+
+                <div class="image-container">
+                    <div class="image-box">
+                        <img id="questionImage" src="" alt="Gambar soal">
+                    </div>
+                </div>
+
+                <div id="answersGrid" class="answers-grid"></div>
+
+                <div id="feedback" class="feedback hidden">
+                    <div class="feedback-content">
+                        <span id="feedbackEmoji" class="feedback-emoji"></span>
+                        <p id="feedbackText"></p>
+                    </div>
+                </div>
+
+                <button id="nextBtn" class="btn-next hidden" onclick="nextQuestion()">
                     Lanjut →
                 </button>
             </div>
@@ -88,20 +129,32 @@
 
     <!-- SCREEN 5: HASIL -->
     <div id="resultScreen" class="screen">
-        <div class="screen-content">
-            <h2>🎉 Selesai!</h2>
-            
-            <div class="score-box">
-                <div class="score">
-                    <span id="finalScore">0</span> / <span id="totalQuestions">10</span>
+        <div class="container result-container">
+            <div class="result-header">
+                <div id="resultEmoji" class="result-emoji">🎉</div>
+                <h2>Selesai!</h2>
+            </div>
+
+            <div class="result-score">
+                <div class="big-score">
+                    <span id="finalScore">0</span>
+                    <span class="slash">/</span>
+                    <span id="totalQuestions">10</span>
                 </div>
             </div>
-            
-            <p id="resultMessage" class="result-message">Bagus sekali!</p>
-            
-            <div class="button-section">
-                <button class="btn btn-large" onclick="goToAge()">Menu Utama</button>
-                <button class="btn btn-large" onclick="location.reload()">Mulai Ulang</button>
+
+            <div class="result-rating">
+                <p id="resultMessage" class="result-message">Bagus sekali!</p>
+                <p id="resultDesc" class="result-desc">Teruskan semangatmu!</p>
+            </div>
+
+            <div class="result-actions">
+                <button class="btn-action btn-menu" onclick="goToAge()">
+                    🏠 Menu Utama
+                </button>
+                <button class="btn-action btn-retry" onclick="location.reload()">
+                    🔄 Mulai Ulang
+                </button>
             </div>
         </div>
     </div>
