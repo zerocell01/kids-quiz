@@ -38,17 +38,43 @@ body{
    SCREEN
 ====================================== */
 
-.screen{
-  display:none;
+body{
   min-height:100vh;
-  width:100%;
-  padding:16px;
+  background:
+    linear-gradient(
+      to bottom,
+      #cceeff,
+      #f5fbff
+    );
+
+  transition:0.3s;
+  position:relative;
 }
 
-.screen.active{
+.screen{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
   display:flex;
   justify-content:center;
   align-items:center;
+  min-height:100vh;
+  width:100%;
+  padding:16px;
+  transition:
+    opacity 0.32s ease,
+    transform 0.32s ease,
+    visibility 0.32s ease;
+  transform:translateY(20px);
+}
+
+.screen.active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateY(0);
 }
 
 /* ======================================
