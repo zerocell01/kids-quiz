@@ -1,88 +1,756 @@
-/* =========================
-   TEMA WARNA KATEGORI
-========================= */
+/* ======================================
+   RESET
+====================================== */
 
-body.hewan-theme{
-  background:linear-gradient(to bottom,#fff4c4,#ffe08a);
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-body.buah-theme{
-  background:linear-gradient(to bottom,#ffd6e7,#ffb8d2);
+html,
+body{
+  width:100%;
+  overflow-x:hidden;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
-body.sayuran-theme{
-  background:linear-gradient(to bottom,#d9ffd6,#b7ffb0);
+/* ======================================
+   BODY
+====================================== */
+
+body{
+  min-height:100vh;
+  background:
+    linear-gradient(
+      to bottom,
+      #cceeff,
+      #f5fbff
+    );
+
+  transition:0.3s;
 }
 
-body.kendaraan-theme{
-  background:linear-gradient(to bottom,#d6ecff,#a8d5ff);
+/* ======================================
+   SCREEN
+====================================== */
+
+.screen{
+  display:none;
+  min-height:100vh;
+  width:100%;
+  padding:16px;
 }
 
-body.tubuh-theme{
-  background:linear-gradient(to bottom,#ffe6c9,#ffd2a0);
+.screen.active{
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-body.angka-theme{
-  background:linear-gradient(to bottom,#e4d8ff,#cdb6ff);
+/* ======================================
+   CONTAINER
+====================================== */
+
+.container{
+  width:100%;
+  max-width:430px;
+  margin:auto;
 }
 
-body.alphabet-theme{
-  background:linear-gradient(to bottom,#d6fff8,#a8fff1);
+/* ======================================
+   HOME
+====================================== */
+
+.home-card{
+  width:100%;
+  max-width:430px;
+
+  background:white;
+
+  border-radius:32px;
+
+  padding:
+    40px
+    24px;
+
+  text-align:center;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0,0,0,0.08);
 }
 
-/* =========================
-   ANIMASI BINTANG
-========================= */
+/* ======================================
+   LOGO
+====================================== */
+
+.logo h1{
+
+  font-size:56px;
+
+  line-height:1;
+
+  font-weight:900;
+
+  color:#6d4cff;
+
+  margin-bottom:14px;
+
+}
+
+.logo p{
+
+  font-size:18px;
+
+  color:#666;
+
+  margin-bottom:40px;
+
+}
+
+/* ======================================
+   BUTTON
+====================================== */
+
+.main-btn{
+
+  width:100%;
+
+  border:none;
+
+  background:#ffb400;
+
+  color:white;
+
+  font-size:22px;
+
+  font-weight:bold;
+
+  padding:18px;
+
+  border-radius:22px;
+
+  cursor:pointer;
+
+  transition:0.2s;
+
+}
+
+.main-btn:hover{
+
+  transform:scale(1.02);
+
+}
+
+.back-btn{
+
+  border:none;
+
+  background:#8b5cf6;
+
+  color:white;
+
+  padding:
+    12px
+    18px;
+
+  border-radius:14px;
+
+  font-size:15px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+}
+
+/* ======================================
+   CATEGORY
+====================================== */
+
+.page-title{
+
+  text-align:center;
+
+  color:#6d4cff;
+
+  font-size:34px;
+
+  font-weight:900;
+
+  margin-bottom:24px;
+
+}
+
+.category-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:16px;
+
+}
+
+.category-card{
+
+  background:white;
+
+  border-radius:28px;
+
+  overflow:hidden;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 8px 18px
+    rgba(0,0,0,0.08);
+
+  transition:0.2s;
+
+}
+
+.category-card:hover{
+
+  transform:translateY(-3px);
+
+}
+
+.category-card img{
+
+  width:100%;
+
+  aspect-ratio:1/1;
+
+  object-fit:cover;
+
+}
+
+.category-name{
+
+  text-align:center;
+
+  padding:14px;
+
+  font-size:20px;
+
+  font-weight:bold;
+
+  color:#444;
+
+}
+
+/* ======================================
+   QUIZ TOP
+====================================== */
+
+.quiz-top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin-bottom:16px;
+
+}
+
+.quiz-badge{
+
+  background:white;
+
+  padding:
+    12px
+    16px;
+
+  border-radius:14px;
+
+  font-weight:bold;
+
+  box-shadow:
+    0 5px 10px
+    rgba(0,0,0,0.05);
+
+  white-space:nowrap;
+
+}
+
+/* ======================================
+   PROGRESS
+====================================== */
+
+.progress-bar{
+
+  width:100%;
+
+  height:12px;
+
+  background:#dfefff;
+
+  border-radius:99px;
+
+  overflow:hidden;
+
+  margin-bottom:20px;
+
+}
+
+.progress-fill{
+
+  width:0%;
+
+  height:100%;
+
+  background:#4ade80;
+
+  border-radius:99px;
+
+  transition:0.3s;
+
+}
+
+/* ======================================
+   QUIZ CARD
+====================================== */
+
+.quiz-card{
+
+  background:white;
+
+  border-radius:30px;
+
+  padding:20px;
+
+  box-shadow:
+    0 10px 24px
+    rgba(0,0,0,0.08);
+
+}
+
+.quiz-label{
+
+  color:#777;
+
+  font-size:14px;
+
+  font-weight:bold;
+
+  margin-bottom:10px;
+
+}
+
+.quiz-card h2{
+
+  text-align:center;
+
+  font-size:28px;
+
+  color:#333;
+
+  margin-bottom:18px;
+
+}
+
+/* ======================================
+   IMAGE
+====================================== */
+
+.question-image{
+
+  width:100%;
+
+  aspect-ratio:16/10;
+
+  object-fit:cover;
+
+  border-radius:22px;
+
+  margin-bottom:20px;
+
+  background:#e8f5ff;
+
+}
+
+/* ======================================
+   ANSWERS
+====================================== */
+
+.answers{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:14px;
+
+}
+
+.answer-btn{
+
+  border:none;
+
+  border-radius:18px;
+
+  padding:16px;
+
+  color:white;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.2s;
+
+}
+
+.answer-btn:hover{
+
+  transform:scale(1.03);
+
+}
+
+.answer-btn:disabled{
+
+  opacity:0.7;
+
+  cursor:not-allowed;
+
+}
+
+/* warna jawaban */
+
+.answer-btn:nth-child(1){
+
+  background:#55d66b;
+
+}
+
+.answer-btn:nth-child(2){
+
+  background:#4ea7ff;
+
+}
+
+.answer-btn:nth-child(3){
+
+  background:#ffc93d;
+
+}
+
+.answer-btn:nth-child(4){
+
+  background:#ff6f91;
+
+}
+
+/* ======================================
+   RESULT
+====================================== */
+
+.result-card{
+
+  width:100%;
+  max-width:430px;
+
+  background:white;
+
+  border-radius:32px;
+
+  padding:
+    40px
+    24px;
+
+  text-align:center;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0,0,0,0.08);
+
+}
+
+.result-card h2{
+
+  font-size:44px;
+
+  margin-bottom:14px;
+
+}
+
+.result-card p{
+
+  color:#666;
+
+  font-size:20px;
+
+}
+
+.result-card h1{
+
+  font-size:80px;
+
+  color:#6d4cff;
+
+  margin:
+    20px
+    0
+    30px;
+
+}
+
+/* ======================================
+   EMPTY QUIZ
+====================================== */
+
+.empty-box{
+
+  background:white;
+
+  border-radius:30px;
+
+  padding:
+    40px
+    20px;
+
+  text-align:center;
+
+  box-shadow:
+    0 10px 24px
+    rgba(0,0,0,0.08);
+
+}
+
+.empty-box h2{
+
+  color:#6d4cff;
+
+  margin-bottom:14px;
+
+}
+
+.empty-box p{
+
+  color:#666;
+
+  margin-bottom:20px;
+
+}
+
+/* ======================================
+   STAR EFFECT
+====================================== */
 
 #starContainer{
+
   position:fixed;
+
   top:0;
   left:0;
+
   width:100%;
   height:100%;
+
   pointer-events:none;
+
   overflow:hidden;
+
   z-index:9999;
+
 }
 
 .star{
+
   position:absolute;
+
   font-size:28px;
-  animation:star-fly 1.5s linear forwards;
+
+  animation:
+    star-fly
+    1.5s
+    linear
+    forwards;
+
 }
 
 @keyframes star-fly{
 
   0%{
-    transform:translateY(0) scale(0.5);
+
+    transform:
+      translateY(0)
+      scale(0.5);
+
     opacity:1;
+
   }
 
   100%{
-    transform:translateY(-200px) scale(1.5);
+
+    transform:
+      translateY(-200px)
+      scale(1.5);
+
     opacity:0;
+
   }
 
 }
 
-/* =========================
-   EMPTY QUIZ
-========================= */
+/* ======================================
+   CATEGORY THEME
+====================================== */
 
-.empty-box{
-  background:white;
-  border-radius:30px;
-  padding:40px 20px;
-  text-align:center;
-  box-shadow:0 10px 24px rgba(0,0,0,0.08);
+body.hewan-theme{
+
+  background:
+    linear-gradient(
+      to bottom,
+      #fff4c4,
+      #ffe08a
+    );
+
 }
 
-.empty-box h2{
-  color:#6d4cff;
-  margin-bottom:14px;
+body.buah-theme{
+
+  background:
+    linear-gradient(
+      to bottom,
+      #ffd6e7,
+      #ffb8d2
+    );
+
 }
 
-.empty-box p{
-  color:#666;
-  margin-bottom:20px;
+body.sayuran-theme{
+
+  background:
+    linear-gradient(
+      to bottom,
+      #d9ffd6,
+      #b7ffb0
+    );
+
+}
+
+body.kendaraan-theme{
+
+  background:
+    linear-gradient(
+      to bottom,
+      #d6ecff,
+      #a8d5ff
+    );
+
+}
+
+body.tubuh-theme{
+
+  background:
+    linear-gradient(
+      to bottom,
+      #ffe6c9,
+      #ffd2a0
+    );
+
+}
+
+body.angka-theme{
+
+  background:
+    linear-gradient(
+      to bottom,
+      #e4d8ff,
+      #cdb6ff
+    );
+
+}
+
+body.alphabet-theme{
+
+  background:
+    linear-gradient(
+      to bottom,
+      #d6fff8,
+      #a8fff1
+    );
+
+}
+
+/* ======================================
+   RESPONSIVE
+====================================== */
+
+@media(max-width:480px){
+
+  .screen{
+
+    padding:14px;
+
+  }
+
+  .logo h1{
+
+    font-size:42px;
+
+  }
+
+  .page-title{
+
+    font-size:28px;
+
+  }
+
+  .quiz-card h2{
+
+    font-size:24px;
+
+  }
+
+  .category-name{
+
+    font-size:17px;
+
+  }
+
+  .answer-btn{
+
+    font-size:16px;
+
+    padding:14px;
+
+  }
+
+  .result-card h1{
+
+    font-size:64px;
+
+  }
+
+}
+
+@media(max-width:360px){
+
+  .answers{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .quiz-top{
+
+    flex-wrap:wrap;
+
+  }
+
 }
