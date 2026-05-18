@@ -572,12 +572,29 @@ function checkAnswer(answer){
     // animasi bintang
     createStars();
 
+    // highlight button yang benar
+    allButtons.forEach((btn)=>{
+      if(btn.innerText === answer){
+        btn.classList.add("answer-correct");
+      }
+    });
+
   }else{
 
     // suara salah
     wrongSound.currentTime = 0;
 
     wrongSound.play();
+
+    // highlight button yang salah
+    allButtons.forEach((btn)=>{
+      if(btn.innerText === answer){
+        btn.classList.add("answer-wrong");
+      }
+      if(btn.innerText === data.correct){
+        btn.classList.add("answer-correct");
+      }
+    });
 
   }
 
@@ -638,14 +655,14 @@ function showResult(){
   }
 
   finalScore.innerHTML = `
-    <div style="margin-bottom: 20px;">
+    <div class="result-emoji" style="margin-bottom: 20px;">
       <h2 style="font-size: 48px; margin-bottom: 10px;">${emoji}</h2>
       <p style="font-size: 18px; color: #666; margin-bottom: 15px;">${message}</p>
     </div>
-    <div style="background: #f0f4ff; padding: 20px; border-radius: 20px; margin-bottom: 20px;">
+    <div class="result-score" style="background: #f0f4ff; padding: 20px; border-radius: 20px; margin-bottom: 20px;">
       <p style="font-size: 14px; color: #777; margin-bottom: 8px;">Total Skor</p>
-      <p style="font-size: 42px; font-weight: bold; color: #6d4cff; margin-bottom: 15px;">${score} Poin</p>
-      <div style="font-size: 14px; color: #666; text-align: left; line-height: 1.8;">
+      <p class="score-number" style="font-size: 42px; font-weight: bold; color: #6d4cff; margin-bottom: 15px;">${score} Poin</p>
+      <div class="result-details" style="font-size: 14px; color: #666; text-align: left; line-height: 1.8;">
         <p>✅ Benar: ${correctAnswers}/${totalQuestions}</p>
         <p>⏱️ Akurasi: ${percentage}%</p>
         <p>📚 Kategori: ${quizData[currentCategory].title}</p>
@@ -653,10 +670,60 @@ function showResult(){
     </div>
   `;
 
+  // Add animation classes
+  const resultCard = document.querySelector('.result-card');
+  resultCard.classList.add('result-pop-in');
+
+  // Trigger confetti
+  createConfetti();
+
+  // Animate score number after a delay
+  setTimeout(()=>{
+    const scoreNum = document.querySelector('.score-number');
+    if(scoreNum) scoreNum.classList.add('score-bounce');
+  },300);
+
+  // Animate details staggered
+  setTimeout(()=>{
+    const details = document.querySelector('.result-details');
+    if(details) details.classList.add('details-slide-in');
+  },600);
+
 }
 
 // ======================================
-// STAR EFFECT
+// CONFETTI EFFECT
+// ======================================
+
+function createConfetti(){
+
+  const container = document.getElementById("starContainer");
+
+  const confettiEmojis = ["🎉", "🎊", "✨", "⭐", "🌟", "💫", "🎈", "🎁"];
+
+  for(let i = 0; i < 30; i++){
+
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.innerHTML = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+    confetti.style.left = Math.random() * 100 + "%";
+    confetti.style.top = Math.random() * 100 + "%";
+    confetti.style.fontSize = (Math.random() * 20 + 16) + "px";
+    confetti.style.animationDelay = (Math.random() * 0.3) + "s";
+    confetti.style.opacity = Math.random() * 0.7 + 0.3;
+
+    container.appendChild(confetti);
+
+    setTimeout(()=>{
+      confetti.remove();
+    }, 3000);
+
+  }
+
+}
+
+// ======================================
+// STAR EFFECT (untuk jawaban benar)
 // ======================================
 
 function createStars(){
