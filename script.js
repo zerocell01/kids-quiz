@@ -354,6 +354,7 @@ function showCategory(){
         <img
           src="${category.image}"
           alt="${category.title}"
+          class="category-img"
         >
 
         <div class="category-name">
@@ -364,6 +365,23 @@ function showCategory(){
     `;
 
   });
+
+  // Add load event listeners to category images
+  setTimeout(()=>{
+    const categoryImages = document.querySelectorAll(".category-img");
+    categoryImages.forEach((img)=>{
+      if(img.complete){
+        img.classList.add("loaded");
+      }else{
+        img.addEventListener("load", ()=>{
+          img.classList.add("loaded");
+        });
+        img.addEventListener("error", ()=>{
+          img.style.background = "#f0e8ff";
+        });
+      }
+    });
+  },0);
 
 }
 
@@ -473,8 +491,38 @@ function loadQuestion(){
   questionText.innerText =
     data.question;
 
-  questionImage.src =
-    data.image;
+  // Set loading state
+  questionImage.classList.add("loading");
+  questionImage.classList.remove("error");
+  questionImage.alt = "Memuat gambar...";
+
+  // Handle image load
+  const handleImageLoad = ()=>{
+    questionImage.classList.remove("loading");
+    questionImage.removeEventListener("load", handleImageLoad);
+    questionImage.removeEventListener("error", handleImageError);
+  };
+
+  // Handle image error
+  const handleImageError = ()=>{
+    questionImage.classList.remove("loading");
+    questionImage.classList.add("error");
+    questionImage.innerHTML = "📷";
+    questionImage.alt = "Gambar tidak tersedia";
+    questionImage.removeEventListener("load", handleImageLoad);
+    questionImage.removeEventListener("error", handleImageError);
+  };
+
+  // Remove old listeners
+  questionImage.removeEventListener("load", handleImageLoad);
+  questionImage.removeEventListener("error", handleImageError);
+
+  // Add new listeners
+  questionImage.addEventListener("load", handleImageLoad);
+  questionImage.addEventListener("error", handleImageError);
+
+  // Set source
+  questionImage.src = data.image;
 
   currentQuestionText.innerText =
     currentQuestion + 1;
