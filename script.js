@@ -24,36 +24,6 @@ const quizData = {
         ],
 
         correct: "Kucing"
-      },
-
-      {
-        question: "Hewan apakah ini?",
-
-        image: "assets/hewan/gajah.jpg",
-
-        answers: [
-          "Ayam",
-          "Kelinci",
-          "Gajah",
-          "Sapi"
-        ],
-
-        correct: "Gajah"
-      },
-
-      {
-        question: "Hewan apakah ini?",
-
-        image: "assets/hewan/ayam.jpg",
-
-        answers: [
-          "Kucing",
-          "Ayam",
-          "Kelinci",
-          "Sapi"
-        ],
-
-        correct: "Ayam"
       }
 
     ]
@@ -630,7 +600,7 @@ function checkAnswer(answer){
 
     }
 
-  },800);
+  },400);
 
 }
 
@@ -644,7 +614,44 @@ function showResult(){
 
   resultScreen.classList.add("active");
 
-  finalScore.innerText = score;
+  const totalQuestions = quizData[currentCategory].quizzes.length;
+  const correctAnswers = Math.round(score / 10);
+  const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+  let message = "";
+  let emoji = "";
+
+  if(percentage === 100){
+    emoji = "🏆";
+    message = "Sempurna! Kamu adalah juara!";
+  }else if(percentage >= 80){
+    emoji = "🌟";
+    message = "Luar biasa! Hasil yang sangat bagus!";
+  }else if(percentage >= 60){
+    emoji = "👍";
+    message = "Bagus! Terus belajar ya!";
+  }else if(percentage >= 40){
+    emoji = "💪";
+    message = "Lumayan! Coba lagi nanti ya!";
+  }else{
+    emoji = "😊";
+    message = "Jangan menyerah! Coba lagi lebih baik!";
+  }
+
+  finalScore.innerHTML = `
+    <div style="margin-bottom: 20px;">
+      <h2 style="font-size: 48px; margin-bottom: 10px;">${emoji}</h2>
+      <p style="font-size: 18px; color: #666; margin-bottom: 15px;">${message}</p>
+    </div>
+    <div style="background: #f0f4ff; padding: 20px; border-radius: 20px; margin-bottom: 20px;">
+      <p style="font-size: 14px; color: #777; margin-bottom: 8px;">Total Skor</p>
+      <p style="font-size: 42px; font-weight: bold; color: #6d4cff; margin-bottom: 15px;">${score} Poin</p>
+      <div style="font-size: 14px; color: #666; text-align: left; line-height: 1.8;">
+        <p>✅ Benar: ${correctAnswers}/${totalQuestions}</p>
+        <p>⏱️ Akurasi: ${percentage}%</p>
+        <p>📚 Kategori: ${quizData[currentCategory].title}</p>
+      </div>
+    </div>
+  `;
 
 }
 
