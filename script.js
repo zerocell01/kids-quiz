@@ -7,14 +7,14 @@ const quizData = {
   hewan: {
     title: "Hewan",
 
-    image: "assets/categories/hewan.jpg",
+    image: "assets/categories/hewan.png",
 
     quizzes: [
 
       {
         question: "Apa nama hewan ini?",
 
-        image: "assets/hewan/kucing.jpg",
+        image: "assets/hewan/kucing.png",
 
         answers: [
           "Kucing",
