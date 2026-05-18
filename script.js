@@ -1,11 +1,12 @@
-// ===============================
+// ======================================
 // DATA QUIZ
-// ===============================
+// ======================================
 
 const quizData = {
 
   hewan: {
     title: "Hewan",
+
     image: "assets/categories/hewan.jpg",
 
     quizzes: [
@@ -38,6 +39,21 @@ const quizData = {
         ],
 
         correct: "Gajah"
+      },
+
+      {
+        question: "Hewan apakah ini?",
+
+        image: "assets/hewan/ayam.jpg",
+
+        answers: [
+          "Kucing",
+          "Ayam",
+          "Kelinci",
+          "Sapi"
+        ],
+
+        correct: "Ayam"
       }
 
     ]
@@ -45,6 +61,7 @@ const quizData = {
 
   buah: {
     title: "Buah",
+
     image: "assets/categories/buah.jpg",
 
     quizzes: [
@@ -62,6 +79,21 @@ const quizData = {
         ],
 
         correct: "Apel"
+      },
+
+      {
+        question: "Buah apakah ini?",
+
+        image: "assets/buah/pisang.jpg",
+
+        answers: [
+          "Pisang",
+          "Apel",
+          "Anggur",
+          "Nanas"
+        ],
+
+        correct: "Pisang"
       }
 
     ]
@@ -69,6 +101,7 @@ const quizData = {
 
   sayuran: {
     title: "Sayuran",
+
     image: "assets/categories/sayuran.jpg",
 
     quizzes: [
@@ -80,9 +113,9 @@ const quizData = {
 
         answers: [
           "Wortel",
-          "Jagung",
+          "Tomat",
           "Kentang",
-          "Tomat"
+          "Jagung"
         ],
 
         correct: "Wortel"
@@ -93,6 +126,7 @@ const quizData = {
 
   kendaraan: {
     title: "Kendaraan",
+
     image: "assets/categories/kendaraan.jpg",
 
     quizzes: [
@@ -105,8 +139,8 @@ const quizData = {
         answers: [
           "Motor",
           "Mobil",
-          "Pesawat",
-          "Sepeda"
+          "Sepeda",
+          "Pesawat"
         ],
 
         correct: "Mobil"
@@ -117,6 +151,7 @@ const quizData = {
 
   tubuh: {
     title: "Anggota Tubuh",
+
     image: "assets/categories/tubuh.jpg",
 
     quizzes: [
@@ -127,10 +162,10 @@ const quizData = {
         image: "assets/tubuh/mata.jpg",
 
         answers: [
-          "Mulut",
           "Mata",
-          "Hidung",
-          "Telinga"
+          "Mulut",
+          "Telinga",
+          "Hidung"
         ],
 
         correct: "Mata"
@@ -141,6 +176,7 @@ const quizData = {
 
   angka: {
     title: "Angka",
+
     image: "assets/categories/angka.jpg",
 
     quizzes: [
@@ -165,6 +201,7 @@ const quizData = {
 
   alphabet: {
     title: "Alphabet",
+
     image: "assets/categories/alphabet.jpg",
 
     quizzes: [
@@ -189,68 +226,118 @@ const quizData = {
 
 };
 
-// ===============================
+// ======================================
 // ELEMENT
-// ===============================
+// ======================================
 
-const homeScreen = document.getElementById("homeScreen");
-const categoryScreen = document.getElementById("categoryScreen");
-const quizScreen = document.getElementById("quizScreen");
-const resultScreen = document.getElementById("resultScreen");
+const homeScreen =
+  document.getElementById("homeScreen");
 
-const categoryGrid = document.getElementById("categoryGrid");
+const categoryScreen =
+  document.getElementById("categoryScreen");
 
-const questionText = document.getElementById("questionText");
-const questionImage = document.getElementById("questionImage");
-const answersContainer = document.getElementById("answersContainer");
+const quizScreen =
+  document.getElementById("quizScreen");
 
-const questionNumber = document.getElementById("questionNumber");
-const scoreText = document.getElementById("scoreText");
-const progressFill = document.getElementById("progressFill");
+const resultScreen =
+  document.getElementById("resultScreen");
 
-const finalScore = document.getElementById("finalScore");
-const currentQuestionText = document.getElementById("currentQuestionText");
+const categoryGrid =
+  document.getElementById("categoryGrid");
 
-// ===============================
+const questionText =
+  document.getElementById("questionText");
+
+const questionImage =
+  document.getElementById("questionImage");
+
+const answersContainer =
+  document.getElementById("answersContainer");
+
+const questionNumber =
+  document.getElementById("questionNumber");
+
+const scoreText =
+  document.getElementById("scoreText");
+
+const progressFill =
+  document.getElementById("progressFill");
+
+const finalScore =
+  document.getElementById("finalScore");
+
+const currentQuestionText =
+  document.getElementById("currentQuestionText");
+
+// ======================================
+// AUDIO
+// ======================================
+
+const correctSound =
+  document.getElementById("correctSound");
+
+const wrongSound =
+  document.getElementById("wrongSound");
+
+const bgMusic =
+  document.getElementById("bgMusic");
+
+// autoplay music saat user klik pertama
+document.body.addEventListener("click", ()=>{
+
+  bgMusic.play();
+
+},{ once:true });
+
+// ======================================
 // VARIABLE
-// ===============================
+// ======================================
 
 let currentCategory = "";
+
 let currentQuestion = 0;
+
 let score = 0;
 
-// ===============================
-// SCREEN
-// ===============================
+// ======================================
+// HIDE SCREEN
+// ======================================
 
 function hideAllScreens(){
 
   homeScreen.classList.remove("active");
+
   categoryScreen.classList.remove("active");
+
   quizScreen.classList.remove("active");
+
   resultScreen.classList.remove("active");
 
 }
 
-// ===============================
+// ======================================
 // HOME
-// ===============================
+// ======================================
 
 function goHome(){
 
   hideAllScreens();
 
+  document.body.className = "";
+
   homeScreen.classList.add("active");
 
 }
 
-// ===============================
+// ======================================
 // CATEGORY
-// ===============================
+// ======================================
 
 function showCategory(){
 
   hideAllScreens();
+
+  document.body.className = "";
 
   categoryScreen.classList.add("active");
 
@@ -264,7 +351,10 @@ function showCategory(){
       <div class="category-card"
         onclick="startQuiz('${key}')">
 
-        <img src="${category.image}" alt="${category.title}">
+        <img
+          src="${category.image}"
+          alt="${category.title}"
+        >
 
         <div class="category-name">
           ${category.title}
@@ -272,22 +362,96 @@ function showCategory(){
 
       </div>
     `;
+
   });
 
 }
 
-// ===============================
+// ======================================
+// RANDOM ARRAY
+// ======================================
+
+function shuffleArray(array){
+
+  for(let i = array.length - 1; i > 0; i--){
+
+    const j =
+      Math.floor(Math.random() * (i + 1));
+
+    [array[i], array[j]] =
+    [array[j], array[i]];
+
+  }
+
+  return array;
+
+}
+
+// ======================================
 // START QUIZ
-// ===============================
+// ======================================
 
 function startQuiz(category){
 
   currentCategory = category;
+
   currentQuestion = 0;
+
   score = 0;
 
   scoreText.innerText = score;
 
+  // reset theme
+  document.body.className = "";
+
+  // theme category
+  document.body.classList.add(
+    `${category}-theme`
+  );
+
+  const quizList =
+    quizData[category].quizzes;
+
+  // jika quiz kosong
+  if(!quizList || quizList.length === 0){
+
+    hideAllScreens();
+
+    quizScreen.classList.add("active");
+
+    document.querySelector("#quizScreen .container")
+    .innerHTML = `
+      <div class="empty-box">
+
+        <h2>
+          📚 Kuis Belum Tersedia
+        </h2>
+
+        <p>
+          Quiz untuk kategori ini
+          belum ditambahkan.
+        </p>
+
+        <button
+          class="main-btn"
+          onclick="showCategory()">
+
+          Kembali
+
+        </button>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+  // random soal
+  quizData[category].quizzes =
+    shuffleArray(quizList);
+
+  // tampil quiz
   hideAllScreens();
 
   quizScreen.classList.add("active");
@@ -296,34 +460,45 @@ function startQuiz(category){
 
 }
 
-// ===============================
+// ======================================
 // LOAD QUESTION
-// ===============================
+// ======================================
 
 function loadQuestion(){
 
   const data =
-    quizData[currentCategory].quizzes[currentQuestion];
+    quizData[currentCategory]
+    .quizzes[currentQuestion];
 
-  questionText.innerText = data.question;
+  questionText.innerText =
+    data.question;
 
-  questionImage.src = data.image;
+  questionImage.src =
+    data.image;
 
   currentQuestionText.innerText =
     currentQuestion + 1;
 
   questionNumber.innerText =
     `${currentQuestion + 1}/${
-      quizData[currentCategory].quizzes.length
+      quizData[currentCategory]
+      .quizzes.length
     }`;
 
   progressFill.style.width =
-    `${((currentQuestion + 1) /
-      quizData[currentCategory].quizzes.length) * 100}%`;
+    `${(
+      (currentQuestion + 1) /
+      quizData[currentCategory]
+      .quizzes.length
+    ) * 100}%`;
 
   answersContainer.innerHTML = "";
 
-  data.answers.forEach((answer)=>{
+  // random jawaban
+  const shuffledAnswers =
+    shuffleArray([...data.answers]);
+
+  shuffledAnswers.forEach((answer)=>{
 
     const button =
       document.createElement("button");
@@ -344,43 +519,76 @@ function loadQuestion(){
 
 }
 
-// ===============================
+// ======================================
 // CHECK ANSWER
-// ===============================
+// ======================================
 
 function checkAnswer(answer){
 
   const data =
-    quizData[currentCategory].quizzes[currentQuestion];
+    quizData[currentCategory]
+    .quizzes[currentQuestion];
+
+  const allButtons =
+    document.querySelectorAll(".answer-btn");
+
+  // disable tombol
+  allButtons.forEach((btn)=>{
+
+    btn.disabled = true;
+
+  });
 
   if(answer === data.correct){
 
+    // tambah score
     score += 10;
 
     scoreText.innerText = score;
 
-  }
+    // suara benar
+    correctSound.currentTime = 0;
 
-  currentQuestion++;
+    correctSound.play();
 
-  if(
-    currentQuestion <
-    quizData[currentCategory].quizzes.length
-  ){
-
-    loadQuestion();
+    // animasi bintang
+    createStars();
 
   }else{
 
-    showResult();
+    // suara salah
+    wrongSound.currentTime = 0;
+
+    wrongSound.play();
 
   }
 
+  // next question
+  currentQuestion++;
+
+  setTimeout(()=>{
+
+    if(
+      currentQuestion <
+      quizData[currentCategory]
+      .quizzes.length
+    ){
+
+      loadQuestion();
+
+    }else{
+
+      showResult();
+
+    }
+
+  },800);
+
 }
 
-// ===============================
+// ======================================
 // RESULT
-// ===============================
+// ======================================
 
 function showResult(){
 
@@ -389,5 +597,41 @@ function showResult(){
   resultScreen.classList.add("active");
 
   finalScore.innerText = score;
+
+}
+
+// ======================================
+// STAR EFFECT
+// ======================================
+
+function createStars(){
+
+  const container =
+    document.getElementById("starContainer");
+
+  for(let i = 0; i < 15; i++){
+
+    const star =
+      document.createElement("div");
+
+    star.classList.add("star");
+
+    star.innerHTML = "⭐";
+
+    star.style.left =
+      Math.random() * 100 + "%";
+
+    star.style.top =
+      Math.random() * 100 + "%";
+
+    container.appendChild(star);
+
+    setTimeout(()=>{
+
+      star.remove();
+
+    },1500);
+
+  }
 
 }
