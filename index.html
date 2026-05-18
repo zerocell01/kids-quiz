@@ -1,471 +1,120 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Edukatif Anak</title>
 
-    <title>Game Edukatif Anak</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-    <!-- ====================== -->
-    <!-- SCREEN UMUR -->
-    <!-- ====================== -->
+  <!-- HOME -->
+  <section id="homeScreen" class="screen active">
 
-    <div id="ageScreen" class="screen active">
+    <div class="home-card">
 
-        <div class="age-bg">
+      <div class="logo">
+        <h1>GAME<br>EDUKATIF</h1>
+        <p>Belajar sambil bermain! ✨</p>
+      </div>
 
-            <div class="cloud cloud1"></div>
-            <div class="cloud cloud2"></div>
-
-            <div class="container">
-
-                <div class="creator-banner">
-
-                    <p>
-                        Game ini dibuat oleh tim <b>EDUKIDS</b>
-                    </p>
-
-                    <a href="https://www.tiktok.com/@edukidsfuns" target="_blank">
-                        Follow TikTok kami →
-                        <span>@Edukids</span>
-                    </a>
-
-                </div>
-
-                <div class="title-section">
-
-                    <div class="title-wrapper">
-
-                        <h1 class="main-title">
-                            GAME<br>
-                            EDUKATIF
-                        </h1>
-
-                        <div class="star-emoji">
-                            ⭐
-                        </div>
-
-                    </div>
-
-                    <div class="subtitle">
-                        Belajar sambil bermain!
-                    </div>
-
-                </div>
-
-                <div class="age-cards">
-
-                    <button class="age-card age-card-pink" onclick="selectAge('1-2')">
-
-                        <div class="card-left">
-
-                            <div class="avatar">👶</div>
-
-                            <div>
-
-                                <div class="age-title">
-                                    1-2 Tahun
-                                </div>
-
-                                <div class="age-desc">
-                                    Bayi Cerdas
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="card-arrow">➜</div>
-
-                    </button>
-
-                    <button class="age-card age-card-orange" onclick="selectAge('3-4')">
-
-                        <div class="card-left">
-
-                            <div class="avatar">🧒</div>
-
-                            <div>
-
-                                <div class="age-title">
-                                    3-4 Tahun
-                                </div>
-
-                                <div class="age-desc">
-                                    Anak Aktif
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="card-arrow">➜</div>
-
-                    </button>
-
-                    <button class="age-card age-card-green" onclick="selectAge('5+')">
-
-                        <div class="card-left">
-
-                            <div class="avatar">👦</div>
-
-                            <div>
-
-                                <div class="age-title">
-                                    5+ Tahun
-                                </div>
-
-                                <div class="age-desc">
-                                    Anak Pintar
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="card-arrow">➜</div>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-            <div class="cat-mascot">
-                🐱
-            </div>
-
-            <div class="bottom-land"></div>
-
-        </div>
+      <button class="main-btn" onclick="showCategory()">
+        Mulai Main
+      </button>
 
     </div>
 
-    <!-- ====================== -->
-    <!-- SCREEN KATEGORI -->
-    <!-- ====================== -->
+  </section>
 
-    <div id="categoryScreen" class="screen">
+  <!-- CATEGORY -->
+  <section id="categoryScreen" class="screen">
 
-        <div class="category-bg">
+    <div class="container">
 
-            <div class="container">
+      <div class="top-header">
+        <button class="back-btn" onclick="goHome()">
+          ← Kembali
+        </button>
+      </div>
 
-                <div class="creator-banner small-banner">
+      <h2 class="page-title">Pilih Kategori</h2>
 
-                    <p>
-                        Game dibuat oleh tim <b>EDUKIDS</b>
-                    </p>
-
-                    <a href="https://www.tiktok.com/@edukidsfuns" target="_blank">
-                        Follow TikTok →
-                        <span>@Edukids</span>
-                    </a>
-
-                </div>
-
-                <div class="header">
-
-                    <button class="btn-back" onclick="goBack()">
-                        ← Kembali
-                    </button>
-
-                    <h2>
-                        Pilih Kategori
-                    </h2>
-
-                </div>
-
-                <div id="categoryContainer" class="category-grid"></div>
-
-            </div>
-
-        </div>
+      <div class="category-grid" id="categoryGrid"></div>
 
     </div>
 
-    <!-- ====================== -->
-    <!-- SCREEN LEVEL -->
-    <!-- ====================== -->
+  </section>
 
-    <div id="levelScreen" class="screen">
+  <!-- QUIZ -->
+  <section id="quizScreen" class="screen">
 
-        <div class="level-bg">
+    <div class="container">
 
-            <div class="container">
+      <div class="quiz-top">
 
-                <div class="header">
+        <button class="back-btn" onclick="showCategory()">
+          ← Kembali
+        </button>
 
-                    <button class="btn-back" onclick="goBack()">
-                        ← Kembali
-                    </button>
-
-                    <h2 id="levelTitle">
-                        Pilih Level
-                    </h2>
-
-                </div>
-
-                <div class="level-cards">
-
-                    <button class="level-card level-easy" onclick="selectLevel('mudah')">
-
-                        <div class="level-content">
-
-                            <div class="level-left">
-
-                                <div class="level-stars">⭐</div>
-
-                                <div>
-
-                                    <div class="level-name">
-                                        Mudah
-                                    </div>
-
-                                    <div class="level-desc">
-                                        Untuk pemula
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="level-emoji">😊</div>
-
-                        </div>
-
-                    </button>
-
-                    <button class="level-card level-medium" onclick="selectLevel('sedang')">
-
-                        <div class="level-content">
-
-                            <div class="level-left">
-
-                                <div class="level-stars">⭐⭐</div>
-
-                                <div>
-
-                                    <div class="level-name">
-                                        Sedang
-                                    </div>
-
-                                    <div class="level-desc">
-                                        Lebih menantang
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="level-emoji">🔥</div>
-
-                        </div>
-
-                    </button>
-
-                    <button class="level-card level-hard" onclick="selectLevel('sulit')">
-
-                        <div class="level-content">
-
-                            <div class="level-left">
-
-                                <div class="level-stars">⭐⭐⭐</div>
-
-                                <div>
-
-                                    <div class="level-name">
-                                        Sulit
-                                    </div>
-
-                                    <div class="level-desc">
-                                        Super menantang
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="level-emoji">💪</div>
-
-                        </div>
-
-                    </button>
-
-                </div>
-
-            </div>
-
+        <div class="quiz-badge">
+          ⭐ <span id="questionNumber">1/5</span>
         </div>
+
+        <div class="quiz-badge">
+          Poin: <span id="scoreText">0</span>
+        </div>
+
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="quiz-card">
+
+        <div class="quiz-label">
+          SOAL <span id="currentQuestionText">1</span>
+        </div>
+
+        <h2 id="questionText">
+          Apa nama hewan ini?
+        </h2>
+
+        <img
+          id="questionImage"
+          class="question-image"
+          src=""
+          alt="gambar quiz"
+        />
+
+        <div class="answers" id="answersContainer"></div>
+
+      </div>
 
     </div>
 
-    <!-- ====================== -->
-    <!-- SCREEN GAME -->
-    <!-- ====================== -->
+  </section>
 
-    <div id="gameScreen" class="screen">
+  <!-- RESULT -->
+  <section id="resultScreen" class="screen">
 
-        <div class="game-bg">
+    <div class="result-card">
 
-            <div class="container">
+      <h2>🎉 Hebat!</h2>
 
-                <div class="game-header">
+      <p>Skor Kamu</p>
 
-                    <button class="btn-back" onclick="goBack()">
-                        ← Kembali
-                    </button>
+      <h1 id="finalScore">0</h1>
 
-                    <div class="game-stats">
-
-                        <span class="counter">
-                            ⭐ <span id="counter">1/10</span>
-                        </span>
-
-                        <span class="score-display">
-                            Poin:
-                            <span id="gameScore">0</span>
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="progress-container">
-
-                    <div class="progress-bar">
-
-                        <div id="progressFill" class="progress-fill"></div>
-
-                    </div>
-
-                </div>
-
-                <div class="game-content">
-
-                    <div class="question-box">
-
-                        <div class="question-label">
-                            SOAL
-                            <span id="questionNum">1</span>
-                        </div>
-
-                        <h3 id="questionText">
-                            Pertanyaan?
-                        </h3>
-
-                    </div>
-
-                    <div class="image-container">
-
-                        <div class="image-box">
-
-                            <img id="questionImage" src="" alt="gambar">
-
-                        </div>
-
-                    </div>
-
-                    <div id="answersGrid" class="answers-grid"></div>
-
-                    <div id="feedback" class="feedback hidden">
-
-                        <div class="feedback-content">
-
-                            <span id="feedbackEmoji" class="feedback-emoji"></span>
-
-                            <p id="feedbackText"></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
+      <button class="main-btn" onclick="showCategory()">
+        Main Lagi
+      </button>
 
     </div>
 
-    <!-- ====================== -->
-    <!-- SCREEN RESULT -->
-    <!-- ====================== -->
+  </section>
 
-    <div id="resultScreen" class="screen">
-
-        <div class="result-bg">
-
-            <div class="container result-container">
-
-                <div class="result-header">
-
-                    <div id="resultEmoji" class="result-emoji">
-                        🎉
-                    </div>
-
-                    <h2>
-                        Selesai!
-                    </h2>
-
-                </div>
-
-                <div class="result-score-box">
-
-                    <div class="result-score">
-
-                        <span id="finalScore">0</span>
-
-                        <span class="slash">/</span>
-
-                        <span id="totalQuestions">10</span>
-
-                    </div>
-
-                </div>
-
-                <div class="result-rating">
-
-                    <p id="resultMessage" class="result-message">
-                        Bagus sekali!
-                    </p>
-
-                    <p id="resultDesc" class="result-desc">
-                        Terus semangat belajar!
-                    </p>
-
-                </div>
-
-                <div class="result-actions">
-
-                    <button class="btn-action btn-menu" onclick="goToAge()">
-                        🏠 Menu Utama
-                    </button>
-
-                    <button class="btn-action btn-retry" onclick="location.reload()">
-                        🔄 Main Lagi
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <script src="data.js"></script>
-    <script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
